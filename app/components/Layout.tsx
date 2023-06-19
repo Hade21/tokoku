@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <header>
         <Header />
       </header>
-      <main>{children}</main>
+      <main className="min-h-screen bg-white text-black">{children}</main>
       <footer>Footer</footer>
     </div>
   );

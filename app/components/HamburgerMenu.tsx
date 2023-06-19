@@ -13,7 +13,10 @@ interface HamburgerMenuProps {
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
   return (
     <>
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu
+        as="div"
+        className="relative inline-block text-left text-base sm:text-2xl"
+      >
         <Menu.Button>
           <GiHamburgerMenu />
         </Menu.Button>
@@ -36,7 +39,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
                         active
                           ? "bg-blue-500 text-white"
                           : "bg-white text-black"
-                      } group flex w-full items-center gap-2 rounded-md p-2 text-sm`}
+                      } group flex w-full items-center gap-2 rounded-md p-2 text-sm sm:text-base`}
                     >
                       {item.icon}
                       {item.label}
