@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
 
-const poppPoppins = Poppins({ subsets: ["latin"], weight: "400" });
+const poppin = Poppins({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
   title: "Tokoku",
@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppPoppins.className}>{children}</body>
+      <body className={poppin.className}>{children}</body>
     </html>
   );
 }

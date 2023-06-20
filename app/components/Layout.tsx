@@ -8,7 +8,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div
-      className="wrapper flex min-h-screen w-screen flex-col justify-between
+      className="relative flex min-h-screen w-screen flex-col justify-between
     "
     >
       <header>

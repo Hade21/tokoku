@@ -1,6 +1,11 @@
 import Image from "next/image";
-import { Layout } from "./components";
+import { HeroBanner, Layout } from "./components";
 
 export default function Home() {
-  return <Layout>Main content</Layout>;
+  return (
+    <Layout>
+      <HeroBanner />
+      Main Content
+    </Layout>
+  );
 }
