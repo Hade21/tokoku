@@ -16,7 +16,7 @@ module.exports = {
         "oxford-blue": "#00072d",
         "penn-blue": "#001c55",
         "royal-blue": "#0A2472",
-        "bice-blue": "#0A2472",
+        "bice-blue": "#0E6BA8",
         "non-photo-blue": "#A6E1FA",
       },
     },

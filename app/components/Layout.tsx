@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,7 +16,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Header />
       </header>
       <main className="min-h-screen bg-white text-black">{children}</main>
-      <footer>Footer</footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
