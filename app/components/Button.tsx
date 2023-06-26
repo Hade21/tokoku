@@ -1,40 +1,37 @@
 import React from "react";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   type: "button" | "submit" | "reset";
   onClick?: () => void;
   children: React.ReactNode;
   variant: "primary" | "secondary" | "tertiary";
-  disabled?: boolean;
 }
 
 const primary =
-  "inline-flex items-center space-x-2 rounded-lg bg-royal-blue px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-bice-blue hover:shadow-md focus:ring-2 focus:ring-bice-blue focus:ring-offset-2";
+  "bg-royal-blue text-white rounded-md px-4 py-2 hover:bg-bice-blue transition-all duration-100 active:translate-y-1";
 const secondary =
-  "inline-flex items-center space-x-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-royal-blue shadow-sm hover:bg-slate-300 hover:shadow-md focus:ring-2 focus:ring-slate-700 focus:ring-offset-2";
+  "bg-white text-oxford-blue rounded-md px-4 py-2 hover:text-white hover:bg-royal-blue transition-all duration-100 active:translate-y-1";
 const tertiary =
-  "inline-flex items-center space-x-2 rounded-lg bg-gray-300 px-4 py-2 text-sm font-normal text-gray-500 shadow-sm";
+  "bg-transparent text-oxford-blue rounded-md px-4 py-2 hover:text-white hover:bg-royal-blue transition-all duration-100 active:translate-y-1";
 
 const Button: React.FC<ButtonProps> = ({
   type,
   onClick,
   children,
   variant,
-  disabled = false,
 }) => {
   return (
     <>
       <button
         type={type}
         className={
-          disabled
-            ? "cursor-not-allowed " + tertiary
-            : variant === "primary"
+          variant === "primary"
             ? primary
-            : secondary
+            : variant === "secondary"
+            ? secondary
+            : tertiary
         }
         onClick={onClick}
-        disabled={disabled}
       >
         {children}
       </button>

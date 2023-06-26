@@ -1,10 +1,11 @@
-import { HeroBanner, Layout, Products } from "./components";
+import Image from "next/image";
+import { HeroBanner, Layout } from "./components";
 
 export default function Home() {
   return (
     <Layout>
       <HeroBanner />
-      <Products />
+      Main Content
     </Layout>
   );
 }
