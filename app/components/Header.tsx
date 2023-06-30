@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  FaSearch,
-  FaShoppingCart,
-  FaUserCircle,
-  FaOpencart,
-} from "react-icons/fa";
+import { FaShoppingCart, FaUserCircle, FaOpencart } from "react-icons/fa";
 import { BsReceipt } from "react-icons/bs";
 import { FiLogIn } from "react-icons/fi";
 import HamburgerMenu from "./HamburgerMenu";
@@ -27,18 +22,6 @@ const Header: React.FC = () => {
       </div>
       <div className="menu text-sm">
         <ul className="hidden justify-end gap-6 text-sm lg:flex xl:text-lg 2xl:gap-10 2xl:text-3xl">
-          <li className="flex items-center gap-2 rounded-xl border-2 border-white px-3 py-2 text-xs xl:text-lg 2xl:text-2xl">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Search"
-              className="bg-transparent text-white outline-none"
-            />
-            <label htmlFor="input" className="cursor-pointer">
-              <FaSearch />
-            </label>
-          </li>
           {listMenu.map((item) => (
             <li className="flex items-center gap-2">
               {item.icon}
