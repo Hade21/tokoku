@@ -6,3 +6,4 @@ export { default as Button } from './Button'
 export { default as Footer } from './Footer'
 export { default as Products } from "./Products"
 export { default as FormUser } from "./FormUser"
+export { default as UserAnimation } from "./UserAnimation"

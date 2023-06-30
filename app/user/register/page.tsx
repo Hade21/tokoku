@@ -1,15 +1,11 @@
-import { FormUser } from "@/app/components";
+import { FormUser, UserAnimation } from "@/app/components";
 import React from "react";
 
 const Register: React.FC = () => {
   return (
     <div className="flex w-full max-w-sm flex-col rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
       <div className="flex w-full flex-col items-center justify-center">
-        <img
-          className="h-32 w-32 rounded-full"
-          src="https://i.imgur.com/7bGQhAY.png"
-          alt="Logo"
-        />
+        <UserAnimation />
         <h2 className="mt-4 text-xl font-medium text-gray-600 dark:text-gray-200">
           Register
         </h2>
