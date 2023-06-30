@@ -18,13 +18,13 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             <input
               type="text"
               id="firstname"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="First name"
             />
             <input
               type="text"
               id="lastname"
-              className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Last name"
             />
           </div>
@@ -38,7 +38,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
           <input
             type="text"
             id="email"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your email"
           />
         </div>
@@ -52,7 +52,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             <input
               type="phone"
               id="phone"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Phone number"
             />
           </div>
@@ -66,7 +66,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
           <input
             type="password"
             id="password"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your password"
           />
         </div>
