@@ -2,6 +2,7 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Link from "next/link";
 
 interface HamburgerMenuProps {
   lists: {
@@ -33,8 +34,8 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
               <div className="p-1">
                 <Menu.Item key={item.href} as={Fragment}>
                   {({ active }) => (
-                    <a
-                      href={item.href as string}
+                    <Link
+                      href={item.href}
                       className={`${
                         active
                           ? "bg-blue-500 text-white"
@@ -43,7 +44,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
                     >
                       {item.icon}
                       {item.label}
-                    </a>
+                    </Link>
                   )}
                 </Menu.Item>
               </div>

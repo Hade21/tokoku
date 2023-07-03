@@ -11,7 +11,7 @@ interface CardProductProps {
 
 const CardProduct: React.FC<CardProductProps> = ({ img, name, price, id }) => {
   return (
-    <div className="rounded-md bg-gray-200">
+    <div className="rounded-md bg-gray-200 backdrop-blur-md dark:bg-penn-blue">
       <img src="" alt="product-image" className="rounded-t-md" />
       <div className="flex items-center justify-between p-2">
         <div>

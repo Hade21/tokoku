@@ -4,6 +4,6 @@ export { default as HamburgerMenu } from "./HamburgerMenu"
 export { default as HeroBanner } from "./HeroBanner"
 export { default as Button } from './Button'
 export { default as Footer } from './Footer'
-export { default as Products } from "./Products"
+export { default as NewProducts } from "./NewProducts"
 export { default as FormUser } from "./FormUser"
 export { default as UserAnimation } from "./UserAnimation"
