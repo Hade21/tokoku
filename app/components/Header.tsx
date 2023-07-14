@@ -4,6 +4,7 @@ import { BsReceipt } from "react-icons/bs";
 import { FiLogIn } from "react-icons/fi";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 const listMenu = [
   { href: "/cart", label: "Cart", icon: <FaShoppingCart /> },
@@ -14,23 +15,26 @@ const listMenu = [
 
 const Header: React.FC = () => {
   return (
-    <div className="sticky flex items-center justify-between bg-oxford-blue px-6 py-4 text-white dark:bg-opacity-60 dark:backdrop-blur-xl">
+    <header className="sticky top-0 z-50 grid grid-cols-2 grid-rows-2 items-center justify-between bg-white bg-opacity-40 px-8 py-6 text-oxford-blue shadow-sm backdrop-blur-lg dark:bg-oxford-blue dark:bg-opacity-70 dark:text-orange-cream dark:shadow-md md:flex">
       <div className="logo flex items-center gap-2 md:text-lg xl:text-2xl 2xl:text-4xl">
         <span className="text-2xl xl:text-4xl 2xl:text-6xl">
           <FaOpencart />
         </span>
-        <h1>Tokoku</h1>
+        <h1 className="font-semibold">Tokoku</h1>
       </div>
-      <div className="menu text-sm">
+      <div className="col-span-2 col-start-1 row-start-2">
+        <SearchBar />
+      </div>
+      <div className="menu col-start-2 row-start-1 flex justify-end text-sm font-semibold">
         <ul className="hidden justify-end gap-6 text-sm lg:flex xl:text-lg 2xl:gap-10 2xl:text-3xl">
           {listMenu.map((item) => (
             <li>
               <Link
                 href={item.href}
-                className="flex cursor-pointer items-center gap-2"
+                className="flex cursor-pointer items-center gap-2 text-lg"
+                title={item.label}
               >
                 {item.icon}
-                {item.label}
               </Link>
             </li>
           ))}
@@ -39,7 +43,7 @@ const Header: React.FC = () => {
           <HamburgerMenu lists={listMenu} />
         </ul>
       </div>
-    </div>
+    </header>
   );
 };
 

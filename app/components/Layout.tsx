@@ -8,16 +8,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="relative flex min-h-screen w-full flex-col justify-between">
-      <header>
-        <Header />
-      </header>
-      <main className="min-h-screen bg-white text-black dark:bg-royal-blue dark:text-white">
-        {children}
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+    <div className="h-full min-h-screen bg-slate-200 dark:bg-black">
+      <Header />
+      <section className="text-black dark:text-white">{children}</section>
+      <Footer />
     </div>
   );
 };

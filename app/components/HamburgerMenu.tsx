@@ -29,17 +29,15 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transfom opacity-0 scale-90"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute -right-8 top-[5.6rem] w-40 rounded-bl-md bg-white bg-opacity-70 backdrop-blur-sm md:top-[3.5rem]">
             {lists.map((item) => (
               <div className="p-1">
                 <Menu.Item key={item.href} as={Fragment}>
                   {({ active }) => (
                     <Link
-                      href={item.href}
+                      href={item.href as string}
                       className={`${
-                        active
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-black"
+                        active ? "bg-blue-500 text-white" : "text-black"
                       } group flex w-full items-center gap-2 rounded-md p-2 text-sm sm:text-base`}
                     >
                       {item.icon}
