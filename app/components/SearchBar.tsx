@@ -3,11 +3,11 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { setSearch } from "../store/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Search } from "@/types";
+import { SearchQuery } from "@/types";
 
 const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
-  const searchVal = useSelector((state: Search) => state.value);
+  const searchVal = useSelector((state: SearchQuery) => state.value);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));

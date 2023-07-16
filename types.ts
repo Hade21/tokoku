@@ -15,6 +15,15 @@ export interface User {
     errMessage: string,
 }
 
-export interface Search {
+export interface SearchQuery {
     value: string
+}
+
+export interface ProductAPIParams {
+    page?: number,
+    limit?: number,
+    sort?: string,
+    brand?: string,
+    'price[lte]'?: number,
+    fields?: string,
 }
