@@ -20,12 +20,14 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               id="firstname"
               className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="First name"
+              autoComplete="off"
             />
             <input
               type="text"
               id="lastname"
               className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Last name"
+              autoComplete="off"
             />
           </div>
         </div>
@@ -40,6 +42,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             id="email"
             className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your email"
+            autoComplete="off"
           />
         </div>
       </div>
@@ -54,6 +57,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               id="phone"
               className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Phone number"
+              autoComplete="off"
             />
           </div>
         </div>
@@ -68,6 +72,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             id="password"
             className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your password"
+            autoComplete="off"
           />
         </div>
       </div>

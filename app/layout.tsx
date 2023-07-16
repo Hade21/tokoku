@@ -1,3 +1,4 @@
+import ReduxProvider from "./components/ReduxProvider";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppin.className}>{children}</body>
+      <body className={poppin.className}>
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
     </html>
   );
 }
