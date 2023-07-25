@@ -1,26 +1,32 @@
-"use client";
 import React from "react";
 import Button from "./Button";
+import ImagesProduct from "./ImagesProduct";
 
 interface CardProductProps {
-  img: string;
+  img: [{ url: string }];
   name: string;
   price: number;
   id: string;
 }
 
-const CardProduct: React.FC<CardProductProps> = ({ img, name, price, id }) => {
+const CardProduct: React.FC<CardProductProps> = (props) => {
+  const { img, name, price, id } = props;
+
   return (
-    <div className="rounded-md bg-gray-200 backdrop-blur-md dark:bg-penn-blue">
-      <img src="" alt="product-image" className="rounded-t-md" />
-      <div className="flex items-center justify-between p-2">
+    <div className="relative rounded-md bg-slate-100 shadow-lg dark:bg-penn-blue">
+      <ImagesProduct img={img} />
+      <div className="group w-full p-4">
         <div>
-          <h1 className="text-lg">Product Name</h1>
-          <p className="text-sm font-bold text-red-500">Product Price</p>
+          <h1 className="mb-4 text-lg">{name}</h1>
+          <p className="text-right text-sm font-bold text-red-500">
+            Rp.{price}
+          </p>
         </div>
-        <Button type="button" variant="secondary">
-          Add to Cart
-        </Button>
+        <div className="invisible absolute left-0 top-0 flex h-full w-full items-center justify-center bg-slate-900 bg-opacity-30 opacity-0 backdrop-blur-sm transition-all duration-200 group-hover:visible group-hover:opacity-100">
+          <Button type="button" variant="primary">
+            Add to Cart
+          </Button>
+        </div>
       </div>
     </div>
   );

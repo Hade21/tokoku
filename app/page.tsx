@@ -7,7 +7,7 @@ export default function Home() {
       <HeroBanner />
       <Products title="New Arrivals" />
       <Products title="Top Selling" />
-      <Products title="Recently Search" />
+      <Products title="Popular" />
     </Layout>
   );
 }

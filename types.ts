@@ -27,3 +27,20 @@ export interface ProductAPIParams {
     'price[lte]'?: number,
     fields?: string,
 }
+
+export interface Product {
+    _id: string,
+    title: string,
+    slug: string,
+    description: string,
+    price: number,
+    stock: number,
+    category: string,
+    brand: string,
+    images: [{ url: string }],
+    colors: string,
+    ratings: [],
+    createdAt: string,
+    updatedAt: string,
+    totalRating: number,
+}
