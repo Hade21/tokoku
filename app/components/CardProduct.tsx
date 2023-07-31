@@ -22,7 +22,7 @@ const CardProduct: React.FC<CardProductProps> = (props) => {
             Rp.{price}
           </p>
         </div>
-        <div className="invisible absolute left-0 top-0 flex h-full w-full items-center justify-center bg-slate-900 bg-opacity-30 opacity-0 backdrop-blur-sm transition-all duration-200 group-hover:visible group-hover:opacity-100">
+        <div className="invisible absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-40 opacity-0 backdrop-blur-sm transition-all duration-200 group-hover:visible group-hover:opacity-100">
           <Button type="button" variant="primary">
             Add to Cart
           </Button>
