@@ -3,11 +3,11 @@ import React from "react";
 
 interface CounterProps {
   stock: number;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Counter: React.FC<CounterProps> = ({ stock }) => {
-  const [count, setCount] = React.useState(1);
-
+const Counter: React.FC<CounterProps> = ({ stock, count, setCount }) => {
   const handleIncrement = () => {
     if (count < stock) {
       setCount(count + 1);

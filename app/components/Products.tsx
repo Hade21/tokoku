@@ -1,7 +1,7 @@
 import React from "react";
 import CardProduct from "./CardProduct";
 import { getAllProduct } from "../api/productApi";
-import { Product } from "@/types";
+import { DataProduct, Product } from "@/types";
 
 interface ProductsProps {
   title: "New Arrivals" | "Top Selling" | "Popular";
@@ -14,7 +14,7 @@ const Products: React.FC<ProductsProps> = async ({ title }) => {
   if (title === "New Arrivals") apiParams = { sort: "createdAt", page };
   if (title === "Top Selling") apiParams = { sort: "sold", page: page };
   if (title === "Popular") apiParams = { sort: "totalRating", page };
-  const data = await getAllProduct(apiParams);
+  const data: DataProduct = await getAllProduct(apiParams);
 
   return (
     <section className="my-8 px-4">
@@ -29,6 +29,9 @@ const Products: React.FC<ProductsProps> = async ({ title }) => {
                 img={item.images}
                 name={item.title}
                 price={item.price}
+                variants={item.variant}
+                colors={item.color}
+                stocks={item.stocks}
               />
             );
           })

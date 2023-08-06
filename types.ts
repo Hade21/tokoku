@@ -34,15 +34,21 @@ export interface Product {
     slug: string,
     description: string,
     price: number,
-    stock: number,
+    stocks: number,
     category: string,
     brand: string,
     images: [{ url: string }],
-    colors: string,
+    color: string[],
     ratings: [],
     createdAt: string,
     updatedAt: string,
     totalRating: number,
+    variant: string[],
+}
+
+export type DataProduct = {
+    message: string,
+    items: Product[],
 }
 
 export interface CartBody {
@@ -58,8 +64,18 @@ export interface SelectorProps {
     setValue: (value: string) => void,
 }
 
-export interface CartOption {
-    variant: string,
-    count: number,
-    color: string,
+export interface CartOptionProps {
+    variantOption: string[],
+    colorOption: string[],
+    stocks: number,
+}
+
+export interface CardProductProps {
+    img: [{ url: string }];
+    name: string;
+    price: number;
+    id: string;
+    variants: string[];
+    colors: string[];
+    stocks: number;
 }
