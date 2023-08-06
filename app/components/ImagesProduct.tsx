@@ -41,8 +41,6 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ img }) => {
     };
   }, []);
 
-  console.log(index);
-
   return (
     <div
       className={`relative m-auto w-full max-h-[${width}px] group overflow-clip rounded-md bg-white`}

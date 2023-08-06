@@ -44,3 +44,22 @@ export interface Product {
     updatedAt: string,
     totalRating: number,
 }
+
+export interface CartBody {
+    _id: string,
+    count: number,
+    variant: string
+}
+
+export interface SelectorProps {
+    title: string,
+    options: string[],
+    value: string,
+    setValue: (value: string) => void,
+}
+
+export interface CartOption {
+    variant: string,
+    count: number,
+    color: string,
+}

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-import { Search } from "@/types"
+import { SearchQuery } from "@/types"
 
-const initialState: Search = {
+const initialState: SearchQuery = {
     value: "",
 }
 
