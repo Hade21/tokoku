@@ -4,7 +4,7 @@ const nextConfig = {
     domains: [
       "res.cloudinary.com",
       "fashionvhal.myshopify.com",
-      "thumbs.dreamstime.com",
+      "artsmidnorthcoast.com",
     ],
   },
 };

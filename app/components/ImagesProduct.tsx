@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-
-import { NoImage } from "@/public";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 interface ImagesProductProps {
   img: [{ url: string }];
@@ -12,20 +13,6 @@ interface ImagesProductProps {
 const ImagesProduct: React.FC<ImagesProductProps> = ({ img }) => {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState(0);
-  const [index, setIndex] = React.useState(0);
-  let newIndex = index;
-
-  const handleNext = () => {
-    const isLastIndex = index === img.length - 1;
-    if (!isLastIndex) return setIndex(index + 1);
-    return setIndex(0);
-  };
-
-  const handlePrev = () => {
-    const isFirstIndex = index === 0;
-    if (!isFirstIndex) return setIndex(index - 1);
-    return setIndex(img.length - 1);
-  };
 
   const testDimension = () => {
     if (targetRef.current) {
@@ -42,35 +29,37 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ img }) => {
   }, []);
 
   return (
-    <div
-      className={`relative m-auto w-full max-h-[${width}px] group overflow-clip rounded-md bg-white`}
-      ref={targetRef}
-    >
-      <Image
-        width={width}
-        height={0}
-        style={{
-          width: "auto",
-          height: `${(width / 4) * 3}px`,
-          objectFit: "contain",
+    <div ref={targetRef}>
+      <Swiper
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
         }}
-        src={img ? img[index].url : NoImage}
-        alt="images-product"
-        loading="lazy"
-        className="mx-auto transform rounded-md transition-all duration-300 ease-in-out"
-      />
-      <div
-        className="absolute left-2 top-1/2 hidden cursor-pointer rounded-full bg-opacity-40 p-1 shadow-lg backdrop-blur-sm transition-transform duration-200 hover:scale-110 hover:bg-white active:translate-y-1 group-hover:block"
-        onClick={handlePrev}
+        modules={[Pagination]}
       >
-        <AiOutlineLeft />
-      </div>
-      <div
-        className="absolute right-2 top-1/2 hidden cursor-pointer rounded-full bg-opacity-40 p-1 shadow-lg backdrop-blur-sm transition-transform duration-200 hover:scale-110 hover:bg-white active:translate-y-1 group-hover:block"
-        onClick={handleNext}
-      >
-        <AiOutlineRight />
-      </div>
+        {img?.map((image, key) => {
+          return (
+            <SwiperSlide key={key}>
+              <div className="relative flex w-full justify-center rounded-t-md bg-white">
+                <Image
+                  src={image.url}
+                  width={width}
+                  height={0}
+                  alt="Product Image"
+                  placeholder="blur"
+                  blurDataURL="https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png"
+                  style={{
+                    objectFit: "contain",
+                    width: "auto",
+                    height: `${(width / 4) * 3}px`,
+                  }}
+                  loading="lazy"
+                />
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
   );
 };

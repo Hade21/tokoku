@@ -65,6 +65,7 @@ export interface SelectorProps {
 }
 
 export interface CartOptionProps {
+    _id: string,
     variantOption: string[],
     colorOption: string[],
     stocks: number,

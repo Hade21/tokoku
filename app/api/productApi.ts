@@ -14,16 +14,3 @@ export async function getAllProduct(params?: ProductAPIParams) {
         }
     }
 }
-
-export async function addToCart(cartBody: CartBody) {
-    const url = new URL('https://tokoku-server.fly.dev/api/v1/cart')
-    const body = JSON.stringify({ cart: cartBody })
-    try {
-        await fetch(url, { method: 'POST', body }).then(res => res.json())
-        revalidateTag('cart')
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message)
-        }
-    }
-}

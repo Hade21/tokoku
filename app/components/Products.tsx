@@ -19,7 +19,7 @@ const Products: React.FC<ProductsProps> = async ({ title }) => {
   return (
     <section className="my-8 px-4">
       <h1 className="text-xl font-bold">{title}</h1>
-      <div className="list-product mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="list-product mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {data.items.length > 0 ? (
           data.items.map((item: Product, key: number) => {
             return (

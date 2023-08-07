@@ -22,8 +22,8 @@ const Counter: React.FC<CounterProps> = ({ stock, count, setCount }) => {
 
   return (
     <div>
-      <h3 className="text-xl font-bold shadow-sm">Count</h3>
-      <div className="flex items-center justify-center">
+      <h3 className="font-bold">Count</h3>
+      <div className="flex items-center justify-center text-sm">
         <button
           className="h-8 w-8 rounded-sm border-2 border-bice-blue bg-white transition-colors duration-200 hover:bg-bice-blue hover:text-white focus:outline-none"
           onClick={handleDecrement}
