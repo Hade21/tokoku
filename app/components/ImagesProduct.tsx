@@ -3,15 +3,18 @@ import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useRouter } from "next/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
 
 interface ImagesProductProps {
   img: [{ url: string }];
+  _id: string;
 }
 
-const ImagesProduct: React.FC<ImagesProductProps> = ({ img }) => {
+const ImagesProduct: React.FC<ImagesProductProps> = ({ img, _id }) => {
   const targetRef = React.useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const [width, setWidth] = React.useState(0);
 
   const testDimension = () => {
@@ -40,7 +43,10 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ img }) => {
         {img?.map((image, key) => {
           return (
             <SwiperSlide key={key}>
-              <div className="relative flex w-full justify-center rounded-t-md bg-white">
+              <div
+                className="relative flex w-full cursor-pointer justify-center rounded-t-md bg-white"
+                onClick={() => router.push(`/product/${_id}`)}
+              >
                 <Image
                   src={image.url}
                   width={width}

@@ -8,7 +8,7 @@ const CardProduct: React.FC<CardProductProps> = (props) => {
 
   return (
     <div className="relative rounded-md bg-slate-100 shadow-lg dark:bg-penn-blue">
-      <ImagesProduct img={img} />
+      <ImagesProduct img={img} _id={id} />
       <div className="group w-full p-4">
         <div>
           <h1 className="mb-4 text-lg">{name}</h1>
