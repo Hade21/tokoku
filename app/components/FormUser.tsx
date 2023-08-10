@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import { BiUser, BiLock } from "react-icons/bi";
+import { BiUser, BiLock, BiEnvelope, BiPhone } from "react-icons/bi";
 
 interface FormUserProps {
   variant: "login" | "register";
@@ -18,14 +18,16 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             <input
               type="text"
               id="firstname"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="First name"
+              autoComplete="off"
             />
             <input
               type="text"
               id="lastname"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Last name"
+              autoComplete="off"
             />
           </div>
         </div>
@@ -33,13 +35,14 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
       <div className="mb-2 flex flex-col">
         <div className="relative flex ">
           <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-            <BiUser />
+            <BiEnvelope />
           </span>
           <input
             type="text"
             id="email"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your email"
+            autoComplete="off"
           />
         </div>
       </div>
@@ -47,13 +50,14 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         <div className="mb-2 flex flex-col">
           <div className="relative flex ">
             <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-              <BiUser />
+              <BiPhone />
             </span>
             <input
               type="phone"
               id="phone"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
               placeholder="Phone number"
+              autoComplete="off"
             />
           </div>
         </div>
@@ -66,14 +70,15 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
           <input
             type="password"
             id="password"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
+            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
             placeholder="Your password"
+            autoComplete="off"
           />
         </div>
       </div>
       <div className="flex w-full">
         <Button type="submit" variant="secondary">
-          <span>Sign In</span>
+          <span>{variant === "login" ? "Sign In" : "Register"}</span>
         </Button>
       </div>
     </form>

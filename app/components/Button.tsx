@@ -9,11 +9,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const primary =
-  "inline-flex items-center space-x-2 rounded-lg bg-royal-blue px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-bice-blue hover:shadow-md focus:ring-2 focus:ring-bice-blue focus:ring-offset-2";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-royal-blue px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-bice-blue hover:shadow-md focus:ring-2 focus:ring-bice-blue focus:ring-offset-2";
 const secondary =
-  "inline-flex items-center space-x-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-royal-blue shadow-sm hover:bg-slate-300 hover:shadow-md focus:ring-2 focus:ring-slate-700 focus:ring-offset-2";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-white px-6 py-3 text-base font-semibold text-royal-blue shadow-sm hover:bg-slate-300 hover:shadow-md focus:ring-2 focus:ring-slate-700 focus:ring-offset-2";
 const tertiary =
-  "inline-flex items-center space-x-2 rounded-lg bg-gray-300 px-4 py-2 text-sm font-normal text-gray-500 shadow-sm";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-gray-300 px-6 py-3 text-base font-normal text-gray-500 shadow-sm";
 
 const Button: React.FC<ButtonProps> = ({
   type,
