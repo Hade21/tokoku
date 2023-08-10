@@ -20,7 +20,7 @@ const Products: React.FC<ProductsProps> = async ({ title }) => {
     <section className="my-8 px-4">
       <h1 className="text-xl font-bold">{title}</h1>
       <div className="list-product mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {data.items.length > 0 ? (
+        {data?.items.length > 0 ? (
           data.items.map((item: Product, key: number) => {
             return (
               <CardProduct
@@ -32,11 +32,14 @@ const Products: React.FC<ProductsProps> = async ({ title }) => {
                 variants={item.variant}
                 colors={item.color}
                 stocks={item.stocks}
+                rating={item.totalRating}
               />
             );
           })
         ) : (
-          <p className="col-span-full row-span-full text-center">No Product</p>
+          <p className="col-span-full row-span-full text-center">
+            No Product available
+          </p>
         )}
       </div>
     </section>

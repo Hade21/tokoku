@@ -79,4 +79,5 @@ export interface CardProductProps {
     variants: string[];
     colors: string[];
     stocks: number;
+    rating: number
 }
