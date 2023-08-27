@@ -1,17 +1,18 @@
 export interface User {
     _id: string,
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     email: string,
     address: string,
     phone: string,
     password: string,
+    passwordMatch: string,
     validFirstname: boolean,
     validLastname: boolean,
     validPassword: boolean,
     validEmail: boolean,
     validPhone: boolean,
-    passwordMatch: boolean,
+    validMatch: boolean,
     errMessage: string,
 }
 
@@ -80,4 +81,9 @@ export interface CardProductProps {
     colors: string[];
     stocks: number;
     rating: number
+}
+
+export interface LoginData {
+    message: string,
+    token: string,
 }
