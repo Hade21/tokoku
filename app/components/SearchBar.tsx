@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { SearchQuery } from "@/types";
 
 const SearchBar: React.FC = () => {
-  const dispatch = useDispatch();
-  const searchVal = useSelector((state: SearchQuery) => state.value);
+  // const dispatch = useDispatch();
+  // const searchVal = useSelector((state: SearchQuery) => state.value);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch(e.target.value));
-  };
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   dispatch(setSearch(e.target.value));
+  // };
 
   return (
     <div
@@ -24,8 +24,8 @@ const SearchBar: React.FC = () => {
         id="search"
         placeholder="Type here to search"
         className="w-full bg-transparent outline-none"
-        value={searchVal}
-        onChange={handleSearch}
+        // value={searchVal}
+        // onChange={handleSearch}
       />
       <label htmlFor="input" className="flex cursor-pointer items-center gap-1">
         <FaSearch />

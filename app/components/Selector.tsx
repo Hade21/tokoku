@@ -14,23 +14,24 @@ const Selector: React.FC<SelectorProps> = (props) => {
           {title}
         </RadioGroup.Label>
         <Swiper slidesPerView={3.8} spaceBetween={5}>
-          {options?.map((option, key) => {
-            return (
-              <SwiperSlide>
-                <RadioGroup.Option
-                  key={key}
-                  value={option}
-                  className={({ active, checked }) =>
-                    `${active ? "ring-2 ring-royal-blue" : ""} ${
-                      checked ? "bg-bice-blue text-white" : "bg-white"
-                    } text-semibold m-1 w-full cursor-pointer rounded-sm px-3 py-2 text-center text-sm transition-colors duration-200 xl:p-2`
-                  }
-                >
-                  {option}
-                </RadioGroup.Option>
-              </SwiperSlide>
-            );
-          })}
+          <ul>
+            {options?.map((option, key) => {
+              return (
+                <SwiperSlide key={key}>
+                  <RadioGroup.Option
+                    value={option}
+                    className={({ active, checked }) =>
+                      `${active ? "ring-2 ring-royal-blue" : ""} ${
+                        checked ? "bg-bice-blue text-white" : "bg-white"
+                      } text-semibold m-1 w-full cursor-pointer rounded-sm px-3 py-2 text-center text-sm transition-colors duration-200 xl:p-2`
+                    }
+                  >
+                    {option}
+                  </RadioGroup.Option>
+                </SwiperSlide>
+              );
+            })}
+          </ul>
         </Swiper>
       </RadioGroup>
     </div>

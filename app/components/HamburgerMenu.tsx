@@ -25,28 +25,29 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
         <Transition
           as={Fragment}
           enter="transition ease-out duration-200"
-          enterFrom="transform opacity-0 scale-90 translate-x-full"
+          enterFrom="transform -translate-y-full blur-md bg-opacity-40"
           leave="transition ease-in duration-200"
           leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transfom opacity-0 scale-90 translate-x-full"
+          leaveTo="transform -translate-y-full blur-md bg-opacity-40"
         >
-          <Menu.Items className="absolute -right-8 top-[6rem] inline-block w-44 divide-y divide-slate-200 rounded-l-md bg-slate-100 shadow-sm shadow-slate-300 md:top-[3.6rem]">
+          <Menu.Items
+            className="absolute -right-8 top-[6rem] -z-50 inline-block w-screen divide-y  divide-slate-200 rounded-b-md bg-white shadow-sm shadow-slate-300 md:top-[3.6rem] md:flex md:flex-row md:justify-between md:divide-x md:divide-y-0"
+            as="ul"
+          >
             {lists.map((item) => (
-              <div>
-                <Menu.Item key={item.href} as={Fragment}>
-                  {({ active }) => (
-                    <Link
-                      href={item.href as string}
-                      className={`${
-                        active ? "bg-blue-500 text-white" : "text-oxford-blue"
-                      } group flex w-full items-center gap-2 rounded-md px-4 py-2 text-sm sm:text-base`}
-                    >
-                      {item.icon}
-                      {item.label}
-                    </Link>
-                  )}
-                </Menu.Item>
-              </div>
+              <Menu.Item key={item.href} as="li">
+                {({ active }) => (
+                  <Link
+                    href={item.href as string}
+                    className={`${
+                      active ? "bg-blue-500 text-white" : "text-oxford-blue"
+                    } group flex w-full items-center justify-center gap-2 rounded-md px-4 py-2 text-sm sm:text-base`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
+                )}
+              </Menu.Item>
             ))}
           </Menu.Items>
         </Transition>

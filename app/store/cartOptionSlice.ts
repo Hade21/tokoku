@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { CartOption } from '@/types';
+import { ProductOption } from '@/types';
 
-const initialState: CartOption = {
+const initialState: ProductOption = {
     variant: '',
     count: 1,
     color: '',

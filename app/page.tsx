@@ -1,5 +1,5 @@
+"use client";
 import { HeroBanner, Layout, Products } from "./components";
-import SearchBar from "./components/SearchBar";
 
 export default function Home() {
   return (

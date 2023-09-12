@@ -81,3 +81,9 @@ export interface CardProductProps {
     stocks: number;
     rating: number
 }
+
+export interface ProductOption {
+    variant: string,
+    count: number,
+    color: string,
+}
