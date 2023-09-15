@@ -7,6 +7,7 @@ import {
   setEmail,
   setErrMsg,
   setFirstName,
+  setFocusFirstName,
   setLastName,
   setPassword,
   setPasswordMatch,
@@ -27,8 +28,8 @@ interface FormUserProps {
 
 const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   const dispatch = useAppDispatch();
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLDivElement>(null);
   const [
     useLogin,
     {
@@ -49,11 +50,19 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   ] = useRegisterMutation();
 
   const firstName = useAppSelector((state) => state.user.firstName);
+  const focusFirstName = useAppSelector((state) => state.user.firstNameFocus);
   const lastName = useAppSelector((state) => state.user.lastName);
+  const focusLastName = useAppSelector((state) => state.user.lastNameFocus);
   const password = useAppSelector((state) => state.user.password);
+  const focusPassword = useAppSelector((state) => state.user.passwordFocus);
   const passwordMatch = useAppSelector((state) => state.user.passwordMatch);
+  const focusPasswordMatch = useAppSelector(
+    (state) => state.user.passwordMatchFocus
+  );
   const email = useAppSelector((state) => state.user.email);
+  const focusEmail = useAppSelector((state) => state.user.emailFocus);
   const phone = useAppSelector((state) => state.user.phone);
+  const focusPhone = useAppSelector((state) => state.user.phoneFocus);
   const validFirstName = useAppSelector((state) => state.user.validFirstName);
   const validLastName = useAppSelector((state) => state.user.validLastName);
   const validEmail = useAppSelector((state) => state.user.validEmail);
@@ -62,6 +71,9 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   const validPhone = useAppSelector((state) => state.user.validPhone);
   const errMsg = useAppSelector((state) => state.user.errMessage);
 
+  useEffect(() => {
+    userRef.current?.focus();
+  }, []);
   useEffect(() => {
     dispatch(validateFirstName(firstName));
   }, [firstName]);
@@ -82,22 +94,26 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [phone]);
 
   useEffect(() => {
-    if (!loginError) {
-      dispatch(setErrMsg("Failed to connect. Check network connection"));
-    } else if (loginError && "status" in loginError) {
-      dispatch(setErrMsg(loginError.data.message));
+    if (loginError && "status" in loginError) {
+      if (loginError.status === "FETCH_ERROR") {
+        dispatch(setErrMsg("Failed to connect. Check network connection"));
+      } else {
+        dispatch(setErrMsg(loginError.data?.message));
+      }
     }
-  }, [loginError]);
+  }, [isLoginError]);
   useEffect(() => {
     console.log(loginData);
   }, [loginData]);
   useEffect(() => {
-    if (!registerError) {
-      dispatch(setErrMsg("Failed to connect. Check network connection"));
-    } else if (registerError && "status" in registerError) {
-      dispatch(setErrMsg(registerError.data.message));
+    if (registerError && "status" in registerError) {
+      if (registerError.status === "FETCH_ERROR") {
+        dispatch(setErrMsg("Failed to connect. Check network connection"));
+      } else {
+        dispatch(setErrMsg(registerError.data.message));
+      }
     }
-  }, [registerError]);
+  }, [isRegisterError]);
   useEffect(() => {
     dispatch(setErrMsg(""));
   }, [firstName, lastName, email, password, passwordMatch, phone]);
@@ -135,11 +151,12 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
 
   return (
     <>
-      <p
+      <div
+        ref={errRef}
         className={
           errMsg
             ? "mb-4 flex items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-center text-base font-bold text-white transition-all duration-300"
-            : "fixed -top-[1024px] transition-all duration-300"
+            : "invisible transition-all duration-300"
         }
         aria-live="assertive"
       >
@@ -147,7 +164,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         <span>
           <AlertAnimation size={50} color="#fff" />
         </span>
-      </p>
+      </div>
       <form onSubmit={handleSubmit}>
         {variant === "register" ? (
           <div className="mb-2 flex flex-col">
@@ -156,6 +173,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 <BiUser />
               </span>
               <input
+                ref={userRef}
                 type="text"
                 id="firstName"
                 className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
@@ -163,8 +181,11 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 autoComplete="off"
                 value={firstName}
                 onChange={(e) => dispatch(setFirstName(e.target.value))}
+                onFocus={() => dispatch(setFocusFirstName(true))}
+                onBlur={() => dispatch(setFocusFirstName(false))}
               />
               <input
+                ref={userRef}
                 type="text"
                 id="lastName"
                 className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
@@ -182,6 +203,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               <BiEnvelope />
             </span>
             <input
+              ref={userRef}
               type="text"
               id="email"
               className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
@@ -199,6 +221,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 <BiPhone />
               </span>
               <input
+                ref={userRef}
                 type="phone"
                 id="phone"
                 className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
@@ -216,6 +239,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               <BiLock />
             </span>
             <input
+              ref={userRef}
               type="password"
               id="password"
               className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
@@ -231,6 +255,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 <BiLock />
               </span>
               <input
+                ref={userRef}
                 type="password"
                 id="passwordMatch"
                 className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"

@@ -3,7 +3,8 @@ import { BaseQueryFn, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/tool
 
 interface CustomError {
   data: { message: string },
-  status: number
+  status: number | string
+  error?: { TypeError: string }
 }
 
 export const userApi = createApi({

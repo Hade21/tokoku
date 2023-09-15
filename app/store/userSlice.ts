@@ -10,18 +10,26 @@ const PHONE_REGEX = /^[0-9]{10,13}$/
 
 const initialState: UserForm = {
     firstName: "",
-    lastName: "",
     validFirstName: false,
+    firstNameFocus: false,
+    lastName: "",
     validLastName: false,
+    lastNameFocus: false,
     email: "",
     validEmail: false,
+    emailFocus: false,
     address: "",
     phone: "",
     validPhone: false,
+    phoneFocus: false,
     password: "",
+    typeInputPass: "password",
     validPassword: false,
+    passwordFocus: false,
     passwordMatch: '',
+    typeInputPasMatch: "password",
     validPassMatch: false,
+    passwordMatchFocus: false,
     errMessage: "",
 }
 
@@ -79,7 +87,31 @@ const userSlice = createSlice({
         },
         setErrMsg(state, action: PayloadAction<string>) {
             return { ...state, errMessage: action.payload }
-        }
+        },
+        setVisiblePassword(state) {
+            return { ...state, passwordFocus: !state.typeInputPass }
+        },
+        setVisiblePassMatch(state) {
+            return { ...state, passwordMatchFocus: !state.typeInputPasMatch }
+        },
+        setFocusFirstName(state, action: PayloadAction<boolean>) {
+            return { ...state, firstNameFocus: action.payload }
+        },
+        setFocusLastName(state, action: PayloadAction<boolean>) {
+            return { ...state, lastNameFocus: action.payload }
+        },
+        setFocusEmail(state, action: PayloadAction<boolean>) {
+            return { ...state, emailFocus: action.payload }
+        },
+        setFocusPhone(state, action: PayloadAction<boolean>) {
+            return { ...state, phoneFocus: action.payload }
+        },
+        setFocusPassword(state, action: PayloadAction<boolean>) {
+            return { ...state, passwordFocus: action.payload }
+        },
+        setFocusPasswordMatch(state, action: PayloadAction<boolean>) {
+            return { ...state, passwordMatchFocus: action.payload }
+        },
     }
 })
 
@@ -98,7 +130,15 @@ export const {
     validatePassword,
     setPasswordMatch,
     validatePassMatch,
-    setErrMsg
+    setErrMsg,
+    setFocusEmail,
+    setFocusFirstName,
+    setFocusLastName,
+    setFocusPassword,
+    setFocusPasswordMatch,
+    setFocusPhone,
+    setVisiblePassword,
+    setVisiblePassMatch
 } = userSlice.actions
 
 export default userSlice.reducer
