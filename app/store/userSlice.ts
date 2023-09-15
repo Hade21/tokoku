@@ -1,19 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-import { User } from "@/types"
+import { UserForm } from "@/types"
 
 const NAME_REGEX = /^[a-zA-Z]{3,20}$/
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const PHONE_REGEX = /^[0-9]{10,13}$/
 
-const initialState: User = {
-    _id: "",
-    firstname: "",
-    lastname: "",
-    validFirstname: false,
-    validLastname: false,
+const initialState: UserForm = {
+    firstName: "",
+    lastName: "",
+    validFirstName: false,
+    validLastName: false,
     email: "",
     validEmail: false,
     address: "",
@@ -21,7 +20,8 @@ const initialState: User = {
     validPhone: false,
     password: "",
     validPassword: false,
-    passwordMatch: false,
+    passwordMatch: '',
+    validPassMatch: false,
     errMessage: "",
 }
 
@@ -29,14 +29,14 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<User>) {
+        setUser(state, action: PayloadAction<UserForm>) {
             return action.payload
         },
         setFirstName(state, action: PayloadAction<string>) {
-            return { ...state, firstname: action.payload }
+            return { ...state, firstName: action.payload }
         },
         setLastName(state, action: PayloadAction<string>) {
-            return { ...state, lastname: action.payload }
+            return { ...state, lastName: action.payload }
         },
         setEmail(state, action: PayloadAction<string>) {
             return { ...state, email: action.payload }
@@ -50,32 +50,35 @@ const userSlice = createSlice({
         setPassword(state, action: PayloadAction<string>) {
             return { ...state, password: action.payload }
         },
-        setValidFirstname(state, action: PayloadAction<string>) {
+        validateFirstName(state, action: PayloadAction<string>) {
             const res = NAME_REGEX.test(action.payload)
-            return { ...state, validFirstname: res }
+            return { ...state, validFirstName: res }
         },
-        setValidLastname(state, action: PayloadAction<string>) {
+        validateLastName(state, action: PayloadAction<string>) {
             const res = NAME_REGEX.test(action.payload)
-            return { ...state, validLastname: res }
+            return { ...state, validLastName: res }
         },
-        setValidEmail(state, action: PayloadAction<string>) {
+        validateEmail(state, action: PayloadAction<string>) {
             const res = EMAIL_REGEX.test(action.payload)
             return { ...state, validEmail: res }
         },
-        setValidPhone(state, action: PayloadAction<string>) {
+        validatePhone(state, action: PayloadAction<string>) {
             const res = PHONE_REGEX.test(action.payload)
             return { ...state, validPhone: res }
         },
-        setValidPassword(state, action: PayloadAction<string>) {
+        validatePassword(state, action: PayloadAction<string>) {
             const res = PASS_REGEX.test(action.payload)
             return { ...state, validPassword: res }
         },
         setPasswordMatch(state, action: PayloadAction<string>) {
-            const res = state.password === action.payload
-            return { ...state, passwordMatch: res }
+            return { ...state, passwordMatch: action.payload }
         },
-        clearUser() {
-            return initialState
+        validatePassMatch(state, action: PayloadAction<string>) {
+            const res = state.password === action.payload
+            return { ...state, validPassMatch: res }
+        },
+        setErrMsg(state, action: PayloadAction<string>) {
+            return { ...state, errMessage: action.payload }
         }
     }
 })
@@ -88,13 +91,14 @@ export const {
     setAddress,
     setPhone,
     setPassword,
-    setValidFirstname,
-    setValidLastname,
-    setValidEmail,
-    setValidPhone,
-    setValidPassword,
+    validateFirstName,
+    validateLastName,
+    validateEmail,
+    validatePhone,
+    validatePassword,
     setPasswordMatch,
-    clearUser
+    validatePassMatch,
+    setErrMsg
 } = userSlice.actions
 
 export default userSlice.reducer

@@ -2,8 +2,7 @@
 import CardProduct from "./CardProduct";
 import { Product } from "@/types";
 import { useGetProductsQuery } from "../store/productApi";
-import loading from "react-useanimations/lib/loading";
-import UseAnimations from "react-useanimations";
+import LoadingAnimation from "./LoadingAnimation";
 
 interface ProductsProps {
   title: "New Arrivals" | "Top Selling" | "Popular";
@@ -28,7 +27,7 @@ const Products: React.FC<ProductsProps> = ({ title = "New Arrivals" }) => {
       <div className="list-product mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {isLoading ? (
           <div className="col-span-full flex w-full justify-center">
-            <UseAnimations animation={loading} size={30} color="#def5ff" />
+            <LoadingAnimation size={30} />
           </div>
         ) : data && data?.items.length > 0 ? (
           data.items.map((item: Product, key: number) => (

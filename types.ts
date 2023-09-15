@@ -1,17 +1,17 @@
-export interface User {
-    _id: string,
-    firstname: string,
-    lastname: string,
+export interface UserForm {
+    firstName: string,
+    lastName: string,
     email: string,
     address: string,
     phone: string,
     password: string,
-    validFirstname: boolean,
-    validLastname: boolean,
+    validFirstName: boolean,
+    validLastName: boolean,
     validPassword: boolean,
     validEmail: boolean,
     validPhone: boolean,
-    passwordMatch: boolean,
+    passwordMatch: string,
+    validPassMatch: boolean,
     errMessage: string,
 }
 
@@ -86,4 +86,14 @@ export interface ProductOption {
     variant: string,
     count: number,
     color: string,
+}
+
+export type UserData = {
+    _id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    address: string,
+    phone: string,
+    password: string,
 }

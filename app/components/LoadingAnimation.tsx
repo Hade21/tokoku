@@ -1,13 +1,24 @@
 "use client";
 import React from "react";
-import { Player } from "@lottiefiles/react-lottie-player";
+import UseAnimations from "react-useanimations";
+import loading from "react-useanimations/lib/loading";
 
-const LoadingAnimation = () => {
+interface LoadingAnimationProps {
+  size: number;
+  color?: string;
+  fillColor?: string;
+  wrapperStyle?: React.CSSProperties;
+}
+
+const LoadingAnimation: React.FC<LoadingAnimationProps> = (params) => {
+  const { size, color = "#def5ff", fillColor, wrapperStyle } = params;
   return (
-    <Player
-      autoplay
-      loop
-      src="https://lottie.host/a0273e33-2079-4f41-b20c-2b39d5075679/kaYogh08Bw.json"
+    <UseAnimations
+      animation={loading}
+      size={size}
+      strokeColor={color}
+      fillColor={fillColor}
+      wrapperStyle={wrapperStyle}
     />
   );
 };

@@ -3,17 +3,19 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import searchReducer from './searchSlice';
 import cartOptionReducer from './cartOptionSlice';
-import { productApi } from './productApi'
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import { productApi } from './productApi'
+import { userApi } from './userApi';
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         search: searchReducer,
         cartOption: cartOptionReducer,
-        [productApi.reducerPath]: productApi.reducer
+        [productApi.reducerPath]: productApi.reducer,
+        [userApi.reducerPath]: userApi.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productApi.middleware, userApi.middleware)
 });
 
 setupListeners(store.dispatch);
