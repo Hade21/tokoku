@@ -27,8 +27,8 @@ const Header: React.FC = () => {
       </div>
       <div className="menu col-start-2 row-start-1 flex justify-end text-sm font-semibold">
         <ul className="hidden justify-end gap-6 text-sm lg:flex xl:text-lg 2xl:gap-10 2xl:text-3xl">
-          {listMenu.map((item) => (
-            <li>
+          {listMenu.map((item, key) => (
+            <li key={key}>
               <Link
                 href={item.href}
                 className="flex cursor-pointer items-center gap-2 text-lg"

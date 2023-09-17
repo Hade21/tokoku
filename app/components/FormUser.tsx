@@ -1,173 +1,396 @@
 "use client";
-import React from "react";
+import { useRef, useEffect } from "react";
 import Button from "./Button";
 import { BiUser, BiLock, BiEnvelope, BiPhone } from "react-icons/bi";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
   setEmail,
+  setErrMsg,
   setFirstName,
+  setFocusEmail,
+  setFocusFirstName,
+  setFocusLastName,
+  setFocusPassword,
+  setFocusPasswordMatch,
+  setFocusPhone,
   setLastName,
   setPassword,
   setPasswordMatch,
   setPhone,
-  setValidEmail,
-  setValidFirstname,
-  setValidLastname,
-  setValidMatch,
-  setValidPassword,
-  setValidPhone,
-} from "../store/features/user/userSlice";
+  validateEmail,
+  validateFirstName,
+  validateLastName,
+  validatePassMatch,
+  validatePassword,
+  validatePhone,
+} from "../store/userSlice";
+import { useLoginMutation, useRegisterMutation } from "../store/userApi";
+import AlertAnimation from "./AlertAnimation";
+import Input from "./FormInput";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 interface FormUserProps {
   variant: "login" | "register";
 }
 
 const FormUser: React.FC<FormUserProps> = ({ variant }) => {
-  const userRef = React.useRef<HTMLInputElement>(null);
-  const errRef = React.useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const dispatch = useAppDispatch();
+  const userRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLDivElement>(null);
+  const [
+    useLogin,
+    {
+      isLoading: loginLoading,
+      isError: isLoginError,
+      data: loginData,
+      error: loginError,
+    },
+  ] = useLoginMutation();
+  const [
+    useRegister,
+    {
+      isLoading: registerLoading,
+      isError: isRegisterError,
+      data: registerData,
+      error: registerError,
+    },
+  ] = useRegisterMutation();
 
   const firstName = useAppSelector((state) => state.user.firstName);
+  const focusFirstName = useAppSelector((state) => state.user.firstNameFocus);
   const lastName = useAppSelector((state) => state.user.lastName);
-  const email = useAppSelector((state) => state.user.email);
-  const phone = useAppSelector((state) => state.user.phone);
+  const focusLastName = useAppSelector((state) => state.user.lastNameFocus);
   const password = useAppSelector((state) => state.user.password);
+  const focusPassword = useAppSelector((state) => state.user.passwordFocus);
   const passwordMatch = useAppSelector((state) => state.user.passwordMatch);
+  const focusPasswordMatch = useAppSelector(
+    (state) => state.user.passwordMatchFocus
+  );
+  const email = useAppSelector((state) => state.user.email);
+  const focusEmail = useAppSelector((state) => state.user.emailFocus);
+  const phone = useAppSelector((state) => state.user.phone);
+  const focusPhone = useAppSelector((state) => state.user.phoneFocus);
+  const validFirstName = useAppSelector((state) => state.user.validFirstName);
+  const validLastName = useAppSelector((state) => state.user.validLastName);
+  const validEmail = useAppSelector((state) => state.user.validEmail);
+  const validPassword = useAppSelector((state) => state.user.validPassword);
+  const validPassMatch = useAppSelector((state) => state.user.validPassMatch);
+  const validPhone = useAppSelector((state) => state.user.validPhone);
+  const errMsg = useAppSelector((state) => state.user.errMessage);
 
-  React.useEffect(() => {
+  useEffect(() => {
     userRef.current?.focus();
   }, []);
-  React.useEffect(() => {
-    dispatch(setValidFirstname(firstName));
+  useEffect(() => {
+    dispatch(validateFirstName(firstName));
   }, [firstName]);
-  React.useEffect(() => {
-    dispatch(setValidLastname(lastName));
+  useEffect(() => {
+    dispatch(validateLastName(lastName));
   }, [lastName]);
-  React.useEffect(() => {
-    dispatch(setValidEmail(email));
+  useEffect(() => {
+    dispatch(validateEmail(email));
   }, [email]);
-  React.useEffect(() => {
-    dispatch(setValidPassword(password));
+  useEffect(() => {
+    dispatch(validatePassword(password));
   }, [password]);
-  React.useEffect(() => {
-    dispatch(setValidPhone(phone));
-  }, [phone]);
-  React.useEffect(() => {
-    dispatch(setValidMatch(passwordMatch));
+  useEffect(() => {
+    dispatch(validatePassMatch(passwordMatch));
   }, [passwordMatch]);
+  useEffect(() => {
+    dispatch(validatePhone(phone));
+  }, [phone]);
+
+  useEffect(() => {
+    if (loginError && "status" in loginError) {
+      if (loginError.status === "FETCH_ERROR") {
+        dispatch(setErrMsg("Failed to connect. Check network connection"));
+      } else {
+        dispatch(setErrMsg(loginError.data?.message));
+      }
+    }
+  }, [isLoginError]);
+  useEffect(() => {
+    console.log(loginData);
+  }, [loginData]);
+  useEffect(() => {
+    if (registerError && "status" in registerError) {
+      if (registerError.status === "FETCH_ERROR") {
+        dispatch(setErrMsg("Failed to connect. Check network connection"));
+      } else {
+        dispatch(setErrMsg(registerError.data.message));
+      }
+    }
+  }, [isRegisterError]);
+  useEffect(() => {
+    dispatch(setErrMsg(""));
+  }, [firstName, lastName, email, password, passwordMatch, phone]);
+
+  const loginFunction = () => {
+    if (!validEmail || !validPassword) {
+      dispatch(setErrMsg("Invalid entries"));
+      return;
+    }
+    const body = { email, password };
+    useLogin(body);
+  };
+
+  const registerFunction = () => {
+    if (
+      !validEmail ||
+      !validPassword ||
+      !validFirstName ||
+      !validLastName ||
+      !validPassMatch ||
+      !validPhone
+    ) {
+      dispatch(setErrMsg("Invalid entries"));
+      return;
+    }
+    const body = { firstName, lastName, email, password, phone };
+    useRegister(body);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (variant === "login") {
-      router.push("/dashboard");
-    } else {
-      router.push("/user/register");
-    }
+    if (variant === "register") registerFunction();
+    else loginFunction();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {variant === "register" ? (
-        <div className="mb-2 flex flex-col">
-          <div className="relative flex ">
-            <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-              <BiUser />
-            </span>
-            <input
-              type="text"
-              id="firstname"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-              placeholder="First name"
-              autoComplete="off"
-              value={firstName}
-              onChange={(e) => dispatch(setFirstName(e.target.value))}
-            />
-            <input
-              type="text"
-              id="lastname"
-              className="ml-2 w-full flex-1 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-              placeholder="Last name"
-              autoComplete="off"
-              value={lastName}
-              onChange={(e) => dispatch(setLastName(e.target.value))}
-            />
-          </div>
-        </div>
-      ) : null}
-      <div className="mb-2 flex flex-col">
-        <div className="relative flex ">
-          <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-            <BiEnvelope />
-          </span>
-          <input
-            type="text"
-            id="email"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-            placeholder="Your email"
-            autoComplete="off"
-            value={email}
-            onChange={(e) => dispatch(setEmail(e.target.value))}
-          />
-        </div>
+    <>
+      <div
+        ref={errRef}
+        className={
+          errMsg
+            ? "mb-4 flex items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-center text-base font-bold text-white transition-all duration-300"
+            : "invisible transition-all duration-300"
+        }
+        aria-live="assertive"
+      >
+        {errMsg}{" "}
+        <span>
+          <AlertAnimation size={50} color="#fff" />
+        </span>
       </div>
-      {variant === "register" ? (
+      <form onSubmit={handleSubmit}>
+        {variant === "register" ? (
+          <div className="mb-2 flex flex-col">
+            <div className="relative flex">
+              <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
+                <BiUser />
+              </span>
+              <Input
+                reference={userRef}
+                type="text"
+                id="firstName"
+                placeholder="First name"
+                value={firstName}
+                describedBy="firstNameNote"
+                valid={validFirstName}
+                onChange={(e) => dispatch(setFirstName(e.target.value))}
+                onFocus={() => dispatch(setFocusFirstName(true))}
+                onBlur={() => dispatch(setFocusFirstName(false))}
+              />
+              <Input
+                reference={userRef}
+                type="text"
+                id="lastName"
+                className="ml-1 w-[calc(100%-0.25rem)] rounded-l-md"
+                placeholder="Last name"
+                describedBy="lastNameNote"
+                valid={validLastName}
+                value={lastName}
+                onChange={(e) => dispatch(setLastName(e.target.value))}
+                onFocus={() => dispatch(setFocusLastName(true))}
+                onBlur={() => dispatch(setFocusLastName(false))}
+              />
+            </div>
+          </div>
+        ) : null}
+        <p
+          id="nameNote"
+          className={
+            (focusFirstName || focusLastName) &&
+            (!validFirstName || !validLastName) &&
+            (firstName || lastName)
+              ? "mx-auto mb-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
+              : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
+          }
+        >
+          <span className="text-lg">
+            <AiOutlineInfoCircle />
+          </span>
+          <span>
+            3 to 20 characters. <br />
+            Use letter only. <br />
+          </span>
+        </p>
         <div className="mb-2 flex flex-col">
-          <div className="relative flex ">
+          <div className="relative flex">
             <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-              <BiPhone />
+              <BiEnvelope />
             </span>
-            <input
-              type="phone"
-              id="phone"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-              placeholder="Phone number"
-              autoComplete="off"
-              value={phone}
-              onChange={(e) => dispatch(setPhone(e.target.value))}
+            <Input
+              reference={userRef}
+              type="text"
+              id="email"
+              placeholder="Your email"
+              describedBy="emailNote"
+              valid={validEmail}
+              value={email}
+              onChange={(e) => dispatch(setEmail(e.target.value))}
+              onFocus={() => dispatch(setFocusEmail(true))}
+              onBlur={() => dispatch(setFocusEmail(false))}
             />
           </div>
         </div>
-      ) : null}
-      <div className="mb-6 flex flex-col">
-        <div className="relative flex ">
-          <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-            <BiLock />
+        <p
+          id="emailNote"
+          className={
+            focusEmail && !validEmail && email
+              ? "mx-auto mb-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
+              : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
+          }
+        >
+          <span className="text-lg">
+            <AiOutlineInfoCircle />
           </span>
-          <input
-            type="password"
-            id="password"
-            className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-            placeholder="Your password"
-            autoComplete="off"
-            value={password}
-            onChange={(e) => dispatch(setPassword(e.target.value))}
-          />
-        </div>
+          <span>Email Invalid</span>
+        </p>
         {variant === "register" ? (
-          <div className="relative flex ">
+          <div className="mb-2 flex flex-col">
+            <div className="relative flex ">
+              <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
+                <BiPhone />
+              </span>
+              <Input
+                reference={userRef}
+                type="phone"
+                id="phone"
+                placeholder="Phone number"
+                describedBy="phoneNote"
+                valid={validPhone}
+                value={phone}
+                onChange={(e) => dispatch(setPhone(e.target.value))}
+                onFocus={() => dispatch(setFocusPhone(true))}
+                onBlur={() => dispatch(setFocusPhone(false))}
+              />
+            </div>
+          </div>
+        ) : null}
+        <p
+          id="phoneNote"
+          className={
+            focusPhone && !validPhone && phone
+              ? "mx-auto mb-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
+              : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
+          }
+        >
+          <span className="text-lg">
+            <AiOutlineInfoCircle />
+          </span>
+          <span>10-13 digits</span>
+        </p>
+        <div className="mb-6 flex flex-col">
+          <div className="relative flex">
             <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
               <BiLock />
             </span>
-            <input
+            <Input
+              reference={userRef}
               type="password"
-              id="passwordmatch"
-              className="w-full flex-1 appearance-none rounded-r-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-100 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-royal-blue"
-              placeholder="Retype your password"
-              autoComplete="off"
+              id="password"
+              placeholder="Type your password"
+              describedBy="passwordNote"
+              valid={validPassword}
               value={password}
-              onChange={(e) => dispatch(setPasswordMatch(e.target.value))}
+              onChange={(e) => dispatch(setPassword(e.target.value))}
+              onFocus={() => dispatch(setFocusPassword(true))}
+              onBlur={() => dispatch(setFocusPassword(false))}
             />
           </div>
-        ) : null}
-      </div>
-      <div className="flex w-full">
-        <Button type="submit" variant="secondary">
-          <span>{variant === "login" ? "Sign In" : "Register"}</span>
-        </Button>
-      </div>
-    </form>
+          <p
+            id="passwordNote"
+            className={
+              focusPassword && !validPassword && password
+                ? "mx-auto my-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
+                : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
+            }
+          >
+            <span className="text-lg">
+              <AiOutlineInfoCircle />
+            </span>
+            <span>
+              8 to 24 characters. <br />
+              Must include uppercase and lowercase letters, numbers, and special
+              characters. <br />
+              Allowed special characters:{" "}
+              <b>
+                <span aria-label="exclamation mark">!</span>
+                <span aria-label="at mark">@</span>
+                <span aria-label="hashtag">#</span>
+                <span aria-label="dollar sign">$</span>
+                <span aria-label="percent">%</span>
+                <span aria-label="single-quote">'</span>
+                <span aria-label="ampersand">*</span>
+              </b>
+            </span>
+          </p>
+          {variant === "register" ? (
+            <div className="relative mt-2 flex">
+              <span className="inline-flex items-center rounded-l-md border-b border-l border-t border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
+                <BiLock />
+              </span>
+              <Input
+                reference={userRef}
+                type="password"
+                id="passwordMatch"
+                placeholder="Retype your password"
+                describedBy="passwordMatchNote"
+                valid={validPassMatch}
+                value={passwordMatch}
+                onChange={(e) => dispatch(setPasswordMatch(e.target.value))}
+                onFocus={() => dispatch(setFocusPasswordMatch(true))}
+                onBlur={() => dispatch(setFocusPasswordMatch(false))}
+              />
+            </div>
+          ) : null}
+          <p
+            id="passwordNote"
+            className={
+              focusPasswordMatch && !validPassMatch && passwordMatch
+                ? "mx-auto my-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
+                : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
+            }
+          >
+            <span className="text-lg">
+              <AiOutlineInfoCircle />
+            </span>
+            <span>Password didn't match</span>
+          </p>
+        </div>
+
+        <div className="flex w-full">
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={
+              !validFirstName ||
+              !validLastName ||
+              !validEmail ||
+              !validPassword ||
+              !validPassMatch ||
+              !validPhone
+                ? true
+                : false
+            }
+            loading={loginLoading || registerLoading}
+          >
+            <span>{variant === "login" ? "Sign In" : "Register"}</span>
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 

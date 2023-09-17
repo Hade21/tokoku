@@ -1,4 +1,5 @@
 import React from "react";
+import LoadingAnimation from "./LoadingAnimation";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type: "button" | "submit" | "reset";
@@ -6,6 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant: "primary" | "secondary" | "tertiary";
   disabled?: boolean;
+  loading?: boolean;
 }
 
 const primary =
@@ -21,6 +23,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   variant,
   disabled = false,
+  loading = false,
 }) => {
   return (
     <>
@@ -28,7 +31,8 @@ const Button: React.FC<ButtonProps> = ({
         type={type}
         className={
           disabled
-            ? "cursor-not-allowed " + tertiary
+            ? "flex cursor-not-allowed gap-1 transition-all duration-200" +
+              tertiary
             : variant === "primary"
             ? primary
             : secondary
@@ -36,6 +40,13 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled}
       >
+        {loading ? (
+          <LoadingAnimation
+            size={20}
+            color={variant === "primary" ? "#ffffff" : "#0A2472"}
+            wrapperStyle={{ transition: "all 0.3s ease-in-out" }}
+          />
+        ) : null}
         {children}
       </button>
     </>
