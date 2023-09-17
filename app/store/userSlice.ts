@@ -112,6 +112,12 @@ const userSlice = createSlice({
         setFocusPasswordMatch(state, action: PayloadAction<boolean>) {
             return { ...state, passwordMatchFocus: action.payload }
         },
+        toggleVisiblePassword(state) {
+            return { ...state, typeInputPass: state.typeInputPass === "password" ? "text" : "password" }
+        },
+        toggleVisiblePasswordMatch(state) {
+            return { ...state, typeInputPasMatch: state.typeInputPasMatch === "password" ? "text" : "password" }
+        }
     }
 })
 
@@ -138,7 +144,9 @@ export const {
     setFocusPasswordMatch,
     setFocusPhone,
     setVisiblePassword,
-    setVisiblePassMatch
+    setVisiblePassMatch,
+    toggleVisiblePassword,
+    toggleVisiblePasswordMatch,
 } = userSlice.actions
 
 export default userSlice.reducer
