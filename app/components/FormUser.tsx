@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
+import axios from "axios";
 import Button from "./Button";
 import { BiUser, BiLock, BiEnvelope, BiPhone } from "react-icons/bi";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -17,6 +18,8 @@ import {
   setPassword,
   setPasswordMatch,
   setPhone,
+  toggleVisiblePasswordMatch,
+  toggleVisiblePassword,
   validateEmail,
   validateFirstName,
   validateLastName,
@@ -28,33 +31,32 @@ import { useLoginMutation, useRegisterMutation } from "../store/userApi";
 import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { useRouter } from "next/navigation";
+import { cookies } from "next/dist/client/components/headers";
+import { useLogin, useRegister } from "@/hooks/queryHooks";
 
 interface FormUserProps {
   variant: "login" | "register";
 }
 
 const FormUser: React.FC<FormUserProps> = ({ variant }) => {
+  const navigate = useRouter();
   const dispatch = useAppDispatch();
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLDivElement>(null);
-  const [
-    useLogin,
-    {
-      isLoading: loginLoading,
-      isError: isLoginError,
-      data: loginData,
-      error: loginError,
-    },
-  ] = useLoginMutation();
-  const [
-    useRegister,
-    {
-      isLoading: registerLoading,
-      isError: isRegisterError,
-      data: registerData,
-      error: registerError,
-    },
-  ] = useRegisterMutation();
+  const {
+    mutate: login,
+    isLoading: loginLoading,
+    error: errorLogin,
+    isSuccess: isSuccessLogin,
+    data: dataLogin,
+  } = useLogin();
+  const {
+    mutate: register,
+    isLoading: loadingRegister,
+    error: errorRegister,
+    isSuccess: isSuccessRegister,
+  } = useRegister();
 
   const firstName = useAppSelector((state) => state.user.firstName);
   const focusFirstName = useAppSelector((state) => state.user.firstNameFocus);
@@ -77,6 +79,10 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   const validPassMatch = useAppSelector((state) => state.user.validPassMatch);
   const validPhone = useAppSelector((state) => state.user.validPhone);
   const errMsg = useAppSelector((state) => state.user.errMessage);
+  const typeInputPass = useAppSelector((state) => state.user.typeInputPass);
+  const typeInputPassMatch = useAppSelector(
+    (state) => state.user.typeInputPasMatch
+  );
 
   useEffect(() => {
     userRef.current?.focus();
@@ -101,26 +107,33 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [phone]);
 
   useEffect(() => {
-    if (loginError && "status" in loginError) {
-      if (loginError.status === "FETCH_ERROR") {
-        dispatch(setErrMsg("Failed to connect. Check network connection"));
+    if (axios.isAxiosError(errorLogin)) {
+      if (errorLogin.response?.status) {
+        dispatch(setErrMsg(errorLogin.response.data.message));
       } else {
-        dispatch(setErrMsg(loginError.data?.message));
+        dispatch(setErrMsg("Network Error"));
       }
     }
-  }, [isLoginError]);
+  }, [errorLogin]);
   useEffect(() => {
-    console.log(loginData);
-  }, [loginData]);
+    if (isSuccessLogin) {
+      console.log(dataLogin);
+    }
+  }, [isSuccessLogin]);
   useEffect(() => {
-    if (registerError && "status" in registerError) {
-      if (registerError.status === "FETCH_ERROR") {
-        dispatch(setErrMsg("Failed to connect. Check network connection"));
+    if (axios.isAxiosError(errorRegister)) {
+      if (errorRegister.response?.status) {
+        dispatch(setErrMsg(errorRegister.response.data.message));
       } else {
-        dispatch(setErrMsg(registerError.data.message));
+        dispatch(setErrMsg("Network Error"));
       }
     }
-  }, [isRegisterError]);
+  }, [errorRegister]);
+  useEffect(() => {
+    if (isSuccessRegister) {
+      navigate.push("/user/login");
+    }
+  }, [isSuccessRegister]);
   useEffect(() => {
     dispatch(setErrMsg(""));
   }, [firstName, lastName, email, password, passwordMatch, phone]);
@@ -131,7 +144,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
       return;
     }
     const body = { email, password };
-    useLogin(body);
+    login(body);
   };
 
   const registerFunction = () => {
@@ -147,7 +160,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
       return;
     }
     const body = { firstName, lastName, email, password, phone };
-    useRegister(body);
+    register(body);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -187,6 +200,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 value={firstName}
                 describedBy="firstNameNote"
                 valid={validFirstName}
+                validation={true}
                 onChange={(e) => dispatch(setFirstName(e.target.value))}
                 onFocus={() => dispatch(setFocusFirstName(true))}
                 onBlur={() => dispatch(setFocusFirstName(false))}
@@ -199,6 +213,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 placeholder="Last name"
                 describedBy="lastNameNote"
                 valid={validLastName}
+                validation={true}
                 value={lastName}
                 onChange={(e) => dispatch(setLastName(e.target.value))}
                 onFocus={() => dispatch(setFocusLastName(true))}
@@ -238,6 +253,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               describedBy="emailNote"
               valid={validEmail}
               value={email}
+              validation={variant === "register" ? true : false}
               onChange={(e) => dispatch(setEmail(e.target.value))}
               onFocus={() => dispatch(setFocusEmail(true))}
               onBlur={() => dispatch(setFocusEmail(false))}
@@ -247,7 +263,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         <p
           id="emailNote"
           className={
-            focusEmail && !validEmail && email
+            focusEmail && !validEmail && email && variant === "register"
               ? "mx-auto mb-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
               : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
           }
@@ -270,6 +286,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 placeholder="Phone number"
                 describedBy="phoneNote"
                 valid={validPhone}
+                validation={true}
                 value={phone}
                 onChange={(e) => dispatch(setPhone(e.target.value))}
                 onFocus={() => dispatch(setFocusPhone(true))}
@@ -289,7 +306,9 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
           <span className="text-lg">
             <AiOutlineInfoCircle />
           </span>
-          <span>10-13 digits</span>
+          <span>
+            10-13 digits <br /> Number only
+          </span>
         </p>
         <div className="mb-6 flex flex-col">
           <div className="relative flex">
@@ -298,21 +317,26 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             </span>
             <Input
               reference={userRef}
-              type="password"
+              type={typeInputPass}
               id="password"
               placeholder="Type your password"
               describedBy="passwordNote"
               valid={validPassword}
+              validation={variant === "login" ? false : true}
               value={password}
               onChange={(e) => dispatch(setPassword(e.target.value))}
               onFocus={() => dispatch(setFocusPassword(true))}
               onBlur={() => dispatch(setFocusPassword(false))}
+              viewPass={() => dispatch(toggleVisiblePassword())}
             />
           </div>
           <p
             id="passwordNote"
             className={
-              focusPassword && !validPassword && password
+              focusPassword &&
+              !validPassword &&
+              password &&
+              variant === "register"
                 ? "mx-auto my-1 flex w-5/6 items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-2 text-left text-xs text-red-500 opacity-100 transition-all duration-500"
                 : "mx-auto h-0 w-0 text-left text-[0px] opacity-0 transition-all duration-500"
             }
@@ -343,15 +367,17 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
               </span>
               <Input
                 reference={userRef}
-                type="password"
+                type={typeInputPassMatch}
                 id="passwordMatch"
                 placeholder="Retype your password"
                 describedBy="passwordMatchNote"
                 valid={validPassMatch}
+                validation={true}
                 value={passwordMatch}
                 onChange={(e) => dispatch(setPasswordMatch(e.target.value))}
                 onFocus={() => dispatch(setFocusPasswordMatch(true))}
                 onBlur={() => dispatch(setFocusPasswordMatch(false))}
+                viewPass={() => dispatch(toggleVisiblePasswordMatch())}
               />
             </div>
           ) : null}
@@ -375,16 +401,18 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             type="submit"
             variant="primary"
             disabled={
-              !validFirstName ||
-              !validLastName ||
-              !validEmail ||
-              !validPassword ||
-              !validPassMatch ||
-              !validPhone
-                ? true
+              variant === "register"
+                ? !validFirstName ||
+                  !validLastName ||
+                  !validEmail ||
+                  !validPassword ||
+                  !validPassMatch ||
+                  !validPhone
+                  ? true
+                  : false
                 : false
             }
-            loading={loginLoading || registerLoading}
+            loading={loginLoading || loadingRegister}
           >
             <span>{variant === "login" ? "Sign In" : "Register"}</span>
           </Button>

@@ -88,12 +88,6 @@ const userSlice = createSlice({
         setErrMsg(state, action: PayloadAction<string>) {
             return { ...state, errMessage: action.payload }
         },
-        setVisiblePassword(state) {
-            return { ...state, passwordFocus: !state.typeInputPass }
-        },
-        setVisiblePassMatch(state) {
-            return { ...state, passwordMatchFocus: !state.typeInputPasMatch }
-        },
         setFocusFirstName(state, action: PayloadAction<boolean>) {
             return { ...state, firstNameFocus: action.payload }
         },
@@ -143,8 +137,6 @@ export const {
     setFocusPassword,
     setFocusPasswordMatch,
     setFocusPhone,
-    setVisiblePassword,
-    setVisiblePassMatch,
     toggleVisiblePassword,
     toggleVisiblePasswordMatch,
 } = userSlice.actions

@@ -1,11 +1,6 @@
 import React, { RefObject } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import ToggleVisiblePassword from "./ToggleVisiblePassword";
-import { store } from "../store/store";
-import {
-  toggleVisiblePassword,
-  toggleVisiblePasswordMatch,
-} from "../store/userSlice";
 
 interface InputProps {
   reference: RefObject<HTMLInputElement>;
@@ -19,6 +14,8 @@ interface InputProps {
   describedBy: string;
   valid: boolean;
   className?: string;
+  viewPass?: () => void;
+  validation: boolean;
 }
 const Input: React.FC<InputProps> = (params) => {
   const {
@@ -33,24 +30,18 @@ const Input: React.FC<InputProps> = (params) => {
     valid,
     describedBy,
     className,
+    viewPass,
+    validation,
   } = params;
-  const typeInput = store.getState().user.typeInputPass;
-  const typeInputMatch = store.getState().user.typeInputPasMatch;
 
   return (
     <div className="relative w-full">
       <input
         ref={reference}
-        type={
-          type !== "password"
-            ? type
-            : id === "password"
-            ? typeInput
-            : typeInputMatch
-        }
+        type={type}
         id={id}
         className={` w-full flex-1 appearance-none rounded-r-md border bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 ${
-          !valid && value
+          validation && !valid && value
             ? "border-red-500 focus:ring-red-500"
             : "border-grey-300 focus:ring-royal-blue"
         } ${className}`}
@@ -62,14 +53,10 @@ const Input: React.FC<InputProps> = (params) => {
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {type === "password" ? (
+      {id === "password" || id === "passwordMatch" ? (
         <span
           className="absolute right-2 top-2 ml-2 flex items-center text-2xl"
-          onClick={
-            id === "password"
-              ? () => store.dispatch(toggleVisiblePassword())
-              : () => store.dispatch(toggleVisiblePasswordMatch())
-          }
+          onClick={viewPass}
         >
           <ToggleVisiblePassword size={30} />
         </span>
@@ -77,8 +64,10 @@ const Input: React.FC<InputProps> = (params) => {
         <>
           <span
             className={
-              valid
-                ? "absolute right-2 top-2 ml-2 flex items-center text-2xl text-green-500"
+              validation
+                ? valid && value
+                  ? "absolute right-2 top-2 ml-2 flex items-center text-2xl text-green-500"
+                  : "hidden"
                 : "hidden"
             }
           >
@@ -86,9 +75,11 @@ const Input: React.FC<InputProps> = (params) => {
           </span>
           <span
             className={
-              valid || !value
-                ? "hidden"
-                : "absolute right-2 top-2 ml-2 flex items-center text-2xl text-red-500"
+              validation
+                ? valid || !value
+                  ? "hidden"
+                  : "absolute right-2 top-2 ml-2 flex items-center text-2xl text-red-500"
+                : "hidden"
             }
           >
             <AiOutlineCloseCircle />

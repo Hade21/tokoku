@@ -1,8 +1,7 @@
-"use client";
 import CardProduct from "./CardProduct";
 import { Product } from "@/types";
-import { useGetProductsQuery } from "../store/productApi";
 import LoadingAnimation from "./LoadingAnimation";
+import { useGetProducts } from "@/hooks/queryHooks";
 
 interface ProductsProps {
   title: "New Arrivals" | "Top Selling" | "Popular";
@@ -17,7 +16,7 @@ const Products: React.FC<ProductsProps> = ({ title = "New Arrivals" }) => {
     "Top Selling": { sort: "sold", page: 1 },
   }[title] || { sort: "createdAt" };
 
-  const { data, isLoading, error } = useGetProductsQuery(apiParams);
+  const { data, isLoading, error } = useGetProducts(apiParams);
 
   if (error instanceof Error) return <h1>{error.message}</h1>;
 
@@ -29,8 +28,8 @@ const Products: React.FC<ProductsProps> = ({ title = "New Arrivals" }) => {
           <div className="col-span-full flex w-full justify-center">
             <LoadingAnimation size={30} />
           </div>
-        ) : data && data?.items.length > 0 ? (
-          data.items.map((item: Product, key: number) => (
+        ) : data && data?.data.items.length > 0 ? (
+          data.data.items.map((item: Product, key: number) => (
             <CardProduct
               key={key}
               id={item._id}
