@@ -27,7 +27,6 @@ import {
   validatePassword,
   validatePhone,
 } from "../store/userSlice";
-import { useLoginMutation, useRegisterMutation } from "../store/userApi";
 import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
