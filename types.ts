@@ -105,3 +105,30 @@ export type UserData = {
     phone: string,
     password: string,
 }
+
+export type loginResponse = {
+    message: string,
+    token: string,
+    refreshToken: string,
+    maxAge: number,
+}
+
+export type registerResponse = {
+    message: string,
+    user: {
+        firstName: string,
+        lastName: string,
+        email: string,
+        phone: string,
+        password: string,
+        role: string,
+        isBlocked: boolean,
+        cart: [],
+        address: [],
+        wishlist: [],
+        _id: string,
+        createdAt: string,
+        updatedAt: string,
+        __v: number
+    }
+}

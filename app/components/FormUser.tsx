@@ -31,8 +31,8 @@ import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { useRouter } from "next/navigation";
-import { cookies } from "next/dist/client/components/headers";
 import { useLogin, useRegister } from "@/hooks/queryHooks";
+import { SetTokenCookies } from "../api/route";
 
 interface FormUserProps {
   variant: "login" | "register";
@@ -116,7 +116,19 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorLogin]);
   useEffect(() => {
     if (isSuccessLogin) {
-      console.log(dataLogin);
+      const { token: accessToken, refreshToken, maxAge } = dataLogin.data;
+      SetTokenCookies({ accessToken, refreshToken, maxAge })
+        .then((res) => {
+          if(!res.ok){
+            throw new Error("Something went wrong!")
+          }
+          if(res.ok){
+            navigate.push('/')
+          }
+        })
+        .catch((err) => {
+          dispatch(setErrMsg(err))
+        });
     }
   }, [isSuccessLogin]);
   useEffect(() => {
