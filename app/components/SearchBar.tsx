@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { setSearch } from "../store/searchSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { SearchQuery } from "@/types";
 
 const SearchBar: React.FC = () => {
