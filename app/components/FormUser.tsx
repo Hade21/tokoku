@@ -26,7 +26,7 @@ import {
   validatePassMatch,
   validatePassword,
   validatePhone,
-} from "../store/userSlice";
+} from "../../store/userSlice";
 import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
@@ -119,15 +119,15 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
       const { token: accessToken, refreshToken, maxAge } = dataLogin.data;
       SetTokenCookies({ accessToken, refreshToken, maxAge })
         .then((res) => {
-          if(!res.ok){
-            throw new Error("Something went wrong!")
+          if (!res.ok) {
+            throw new Error("Something went wrong!");
           }
-          if(res.ok){
-            navigate.push('/')
+          if (res.ok) {
+            navigate.push("/");
           }
         })
         .catch((err) => {
-          dispatch(setErrMsg(err))
+          dispatch(setErrMsg(err));
         });
     }
   }, [isSuccessLogin]);
