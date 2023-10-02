@@ -23,7 +23,7 @@ const Selector: React.FC<SelectorProps> = (props) => {
                     className={({ active, checked }) =>
                       `${active ? "ring-2 ring-royal-blue" : ""} ${
                         checked ? "bg-bice-blue text-white" : "bg-white"
-                      } text-semibold m-1 w-full cursor-pointer rounded-sm px-3 py-2 text-center text-sm transition-colors duration-200 xl:p-2`
+                      } text-semibold m-1 w-full cursor-pointer rounded-md border border-non-photo-blue px-3 py-2 text-center text-sm transition-colors duration-200 xl:p-2`
                     }
                   >
                     {option}

@@ -2,10 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { useRouter } from "next/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 interface ImagesProductProps {
   img: [{ url: string }];
@@ -38,7 +39,8 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ img, _id }) => {
           clickable: true,
           dynamicBullets: true,
         }}
-        modules={[Pagination]}
+        navigation={true}
+        modules={[Pagination, Navigation]}
       >
         {img?.map((image, key) => {
           return (
