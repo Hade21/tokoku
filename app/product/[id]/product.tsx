@@ -9,7 +9,7 @@ import { AiFillStar } from "react-icons/ai";
 
 const ProductDetail = ({ id }: { id: string }) => {
   const { data, isLoading, error, isError } = useGetDetailProduct(id);
-  const productData = data?.data.item;
+  const productData = data?.item;
 
   if (isError) {
     if (axios.isAxiosError(error))
@@ -18,10 +18,17 @@ const ProductDetail = ({ id }: { id: string }) => {
   if (isLoading)
     return (
       <div className="flex w-full items-center justify-center">
-        <LoadingAnimation size={20} />
+        <LoadingAnimation
+          size={30}
+          wrapperStyle={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
       </div>
     );
-  console.log(data?.data);
+
   return (
     <div className="mx-auto my-4 w-10/12">
       <section className="flex flex-col gap-2 md:grid md:grid-cols-2 md:grid-rows-1">

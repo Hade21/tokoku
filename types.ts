@@ -54,9 +54,14 @@ export interface Product {
     variant: string[],
 }
 
-export type DataProduct = {
+export type DataProducts = {
     message: string,
     items: Product[],
+}
+
+export type DataProductDetail = {
+    message: string,
+    item: Product
 }
 
 export interface CartBody {

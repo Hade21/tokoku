@@ -88,22 +88,22 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, []);
   useEffect(() => {
     dispatch(validateFirstName(firstName));
-  }, [firstName]);
+  }, [firstName, dispatch]);
   useEffect(() => {
     dispatch(validateLastName(lastName));
-  }, [lastName]);
+  }, [lastName, dispatch]);
   useEffect(() => {
     dispatch(validateEmail(email));
-  }, [email]);
+  }, [email, dispatch]);
   useEffect(() => {
     dispatch(validatePassword(password));
-  }, [password]);
+  }, [password, dispatch]);
   useEffect(() => {
     dispatch(validatePassMatch(passwordMatch));
-  }, [passwordMatch]);
+  }, [passwordMatch, dispatch]);
   useEffect(() => {
     dispatch(validatePhone(phone));
-  }, [phone]);
+  }, [phone, dispatch]);
 
   useEffect(() => {
     if (axios.isAxiosError(errorLogin)) {
@@ -113,7 +113,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         dispatch(setErrMsg("Network Error"));
       }
     }
-  }, [errorLogin]);
+  }, [errorLogin, dispatch]);
   useEffect(() => {
     if (isSuccessLogin) {
       const { token: accessToken, refreshToken, maxAge } = dataLogin.data;
@@ -130,7 +130,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
           dispatch(setErrMsg(err));
         });
     }
-  }, [isSuccessLogin]);
+  }, [isSuccessLogin, dispatch, dataLogin?.data, navigate]);
   useEffect(() => {
     if (axios.isAxiosError(errorRegister)) {
       if (errorRegister.response?.status) {
@@ -139,15 +139,15 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         dispatch(setErrMsg("Network Error"));
       }
     }
-  }, [errorRegister]);
+  }, [errorRegister, dispatch]);
   useEffect(() => {
     if (isSuccessRegister) {
       navigate.push("/user/login");
     }
-  }, [isSuccessRegister]);
+  }, [isSuccessRegister, navigate]);
   useEffect(() => {
     dispatch(setErrMsg(""));
-  }, [firstName, lastName, email, password, passwordMatch, phone]);
+  }, [firstName, lastName, email, password, passwordMatch, phone, dispatch]);
 
   const loginFunction = () => {
     if (!validEmail || !validPassword) {
@@ -366,7 +366,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
                 <span aria-label="hashtag">#</span>
                 <span aria-label="dollar sign">$</span>
                 <span aria-label="percent">%</span>
-                <span aria-label="single-quote">'</span>
+                <span aria-label="single-quote">&apos;</span>
                 <span aria-label="ampersand">*</span>
               </b>
             </span>
@@ -403,7 +403,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             <span className="text-lg">
               <AiOutlineInfoCircle />
             </span>
-            <span>Password didn't match</span>
+            <span>Password didn&apos;t match</span>
           </p>
         </div>
 

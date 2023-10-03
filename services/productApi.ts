@@ -1,14 +1,14 @@
-import { ProductAPIParams } from '@/types'
-import axios from 'axios'
+import { DataProductDetail, DataProducts, ProductAPIParams } from '@/types'
+import axios, { AxiosResponse } from 'axios'
 
 const baseUrl = 'https://tokoku-server.fly.dev/api/v1/product'
 
 class ProductServices {
-  getProducts(params: ProductAPIParams) {
-    return axios.get(baseUrl, { params })
+  getProducts = async (params: ProductAPIParams) => {
+    return axios.get<ProductAPIParams, AxiosResponse<DataProducts>>(baseUrl, { params }).then(res => { return res.data }).catch(err => { return err })
   }
-  getDetailProduct(id: string) {
-    return axios.get(`${baseUrl}/${id}`)
+  getDetailProduct = async (id: string) => {
+    return axios.get<string, AxiosResponse<DataProductDetail>>(`${baseUrl}/${id}`).then(res => { return res.data }).catch(err => { return err })
   }
 }
 

@@ -8,7 +8,7 @@ const DetailProduct = ({ params }: { params: { id: string } }) => {
   return (
     <div className="flex min-h-screen flex-col justify-between">
       <Header />
-      <ProductDetail id={id} />
+      <HydrateProduct id={id} />
       <Footer />
     </div>
   );
