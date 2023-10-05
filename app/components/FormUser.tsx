@@ -32,7 +32,7 @@ import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { useLogin, useRegister } from "@/hooks/queryUserHooks";
-import { SetTokenCookies } from "../api/route";
+import { SetTokenCookies } from "@/app/lib/tokenCookies";
 
 interface FormUserProps {
   variant: "login" | "register";
