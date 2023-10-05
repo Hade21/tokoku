@@ -37,8 +37,8 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<UserForm>) {
-            return action.payload
+        resetUserState(state) {
+            return state = initialState
         },
         setFirstName(state, action: PayloadAction<string>) {
             return { ...state, firstName: action.payload }
@@ -116,7 +116,7 @@ const userSlice = createSlice({
 })
 
 export const {
-    setUser,
+    resetUserState,
     setFirstName,
     setLastName,
     setEmail,

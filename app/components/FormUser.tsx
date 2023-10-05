@@ -26,6 +26,7 @@ import {
   validatePassMatch,
   validatePassword,
   validatePhone,
+  resetUserState,
 } from "../../store/userSlice";
 import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
@@ -123,6 +124,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
             throw new Error("Something went wrong!");
           }
           if (res.ok) {
+            dispatch(resetUserState());
             navigate.push("/");
           }
         })
@@ -142,6 +144,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorRegister, dispatch]);
   useEffect(() => {
     if (isSuccessRegister) {
+      dispatch(resetUserState());
       navigate.push("/user/login");
     }
   }, [isSuccessRegister, navigate]);

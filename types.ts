@@ -137,3 +137,12 @@ export type registerResponse = {
         __v: number
     }
 }
+
+export type AddCartParams = {
+    cart: {
+        _id: string,
+        variant: string,
+        count: number,
+        color: string
+    }
+}
