@@ -1,3 +1,4 @@
+import { GetTokenCookies } from '@/app/lib/tokenCookies';
 import { AddCartParams, UserData, loginResponse, registerResponse } from '@/types';
 import axios, { AxiosResponse } from 'axios'
 
@@ -11,6 +12,7 @@ class UserServices {
     return axios.post<Omit<UserData, '_id' | 'address'>, AxiosResponse<registerResponse>>(baseUrl + '/register', user)
   }
   addToCart = async (body: AddCartParams) => {
+    const data = (await GetTokenCookies()).body
     return axios.post<AddCartParams, AxiosResponse>(`${baseUrl}/cart`, body)
   }
 }

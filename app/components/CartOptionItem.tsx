@@ -5,6 +5,7 @@ import Counter from "./Counter";
 import Selector from "./Selector";
 import { CartOptionProps } from "@/types";
 import { useAddToCart } from "@/hooks/queryUserHooks";
+import { GetTokenCookies } from "../lib/tokenCookies";
 
 const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const { variantOption, colorOption, stocks, _id } = props;
@@ -13,7 +14,7 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const [count, setCount] = React.useState(1);
   const { mutate, data, isLoading, isError, isSuccess } = useAddToCart();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const body = {
       cart: {
         _id,
@@ -22,17 +23,19 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
         count,
       },
     };
-    mutate(body);
+    const data = await GetTokenCookies();
+    console.log(data);
+    // mutate(body);
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      setCount(1);
-      setVariant("");
-      setColor("");
-      console.log(data);
-    }
-  }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     setCount(1);
+  //     setVariant("");
+  //     setColor("");
+  //     console.log(data);
+  //   }
+  // }, [isSuccess]);
 
   return (
     <div className="flex w-full flex-col justify-start gap-2 px-4 xl:gap-1">

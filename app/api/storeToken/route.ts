@@ -13,12 +13,4 @@ export async function POST(req: Request) {
   })
 
   return NextResponse.json({ message: "success" })
-  // res.setHeader('Set-Cookie', cookie.serialize('token', JSON.stringify(cookieObject), {
-  //   httpOnly: true,
-  //   secure: true,
-  //   maxAge,
-  //   sameSite: 'strict',
-  // }))
-  // res.status(200).json({ message: 'success' })
-
 }

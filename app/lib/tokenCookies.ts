@@ -11,3 +11,8 @@ export const SetTokenCookies = ({ accessToken, refreshToken, maxAge }: { accessT
     })
   })
 }
+
+export const GetTokenCookies = async () => {
+  const res = await fetch('../api/accessToken')
+  return await res.json()
+}
