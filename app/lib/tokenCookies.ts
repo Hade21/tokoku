@@ -1,13 +1,11 @@
-export const SetTokenCookies = ({ accessToken, refreshToken, maxAge }: { accessToken: string, refreshToken: string, maxAge: number }) => {
+export const SetTokenCookies = ({ accessToken }: { accessToken: string }) => {
   return fetch('/api/storeToken', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      accessToken,
-      refreshToken,
-      maxAge
+      accessToken
     })
   })
 }

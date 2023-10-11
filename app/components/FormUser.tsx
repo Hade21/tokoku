@@ -117,8 +117,8 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorLogin, dispatch]);
   useEffect(() => {
     if (isSuccessLogin) {
-      const { token: accessToken, refreshToken, maxAge } = dataLogin.data;
-      SetTokenCookies({ accessToken, refreshToken, maxAge })
+      const { token: accessToken } = dataLogin.data;
+      SetTokenCookies({ accessToken })
         .then((res) => {
           if (!res.ok) {
             throw new Error("Something went wrong!");
