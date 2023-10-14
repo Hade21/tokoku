@@ -131,6 +131,8 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
         .catch((err) => {
           dispatch(setErrMsg(err));
         });
+      // dispatch(resetUserState());
+      // navigate.push("/");
     }
   }, [isSuccessLogin, dispatch, dataLogin?.data, navigate]);
   useEffect(() => {
