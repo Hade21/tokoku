@@ -117,22 +117,20 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorLogin, dispatch]);
   useEffect(() => {
     if (isSuccessLogin) {
-      const { token: accessToken } = dataLogin.data;
-      SetTokenCookies({ accessToken })
+      const { token: accessToken, refreshToken } = dataLogin.data;
+      SetTokenCookies({ accessToken, refreshToken })
         .then((res) => {
           if (!res.ok) {
             throw new Error("Something went wrong!");
           }
           if (res.ok) {
-            dispatch(resetUserState());
             navigate.push("/");
+            dispatch(resetUserState());
           }
         })
         .catch((err) => {
           dispatch(setErrMsg(err));
         });
-      // dispatch(resetUserState());
-      // navigate.push("/");
     }
   }, [isSuccessLogin, dispatch, dataLogin?.data, navigate]);
   useEffect(() => {
