@@ -10,11 +10,8 @@ export async function GET(req: NextRequest) {
   const refreshToken = parsedCookies.refreshToken
 
   if (!accessToken) {
-    const url = req.nextUrl.clone()
-    url.pathname = '/user/login'
-    return NextResponse.redirect(url)
+    return NextResponse.json({ message: "No access token" })
   }
-
   const { exp } = jwt_decode<JwtPayload>(accessToken)
   const isExpired = Date.now() > exp! * 1000
 

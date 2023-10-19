@@ -11,9 +11,16 @@ class UserServices {
   register(user: Omit<UserData, '_id' | 'address'>) {
     return axios.post<Omit<UserData, '_id' | 'address'>, AxiosResponse<registerResponse>>(baseUrl + '/register', user)
   }
-  addToCart = async (body: AddCartParams) => {
-    const data = (await GetTokenCookies()).body
-    return axios.post<AddCartParams, AxiosResponse>(`${baseUrl}/cart`, body)
+  async addToCart(body: AddCartParams) {
+    const data = await GetTokenCookies()
+    if (data.message === "No access token") {
+      throw new Error("No access token")
+    }
+    return axios.post<AddCartParams, AxiosResponse>(`${baseUrl}/cart`, body, {
+      headers: {
+        Authorization: `Bearer ${data.accessToken}`
+      }
+    })
   }
 }
 
