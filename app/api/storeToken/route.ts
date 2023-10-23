@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
   cookies().set('token', JSON.stringify({ accessToken, refreshToken }), {
     httpOnly: true,
-    secure: false,
+    secure: true,
     maxAge: 24 * 60 * 60 * 1000,
     sameSite: 'strict'
   })

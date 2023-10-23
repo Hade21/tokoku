@@ -35,6 +35,8 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
       if (error.response?.status === 401) {
         redirect("/user/login");
       }
+    } else if (isError) {
+      redirect("/user/login");
     }
   }, [isError]);
   useEffect(() => {
@@ -71,9 +73,6 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
           Add to Cart
         </Button>
       </div>
-      {isSuccess && (
-        <Modals title="Product Added" desc="Items has added to your cart" />
-      )}
     </div>
   );
 };

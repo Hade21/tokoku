@@ -16,7 +16,7 @@ class UserServices {
     const data = await GetTokenCookies()
     console.log("🚀 ~ file: userApi.ts:17 ~ UserServices ~ addToCart ~ data:", data)
     if (data.message === NO_TOKEN) {
-      throw new Error(NO_TOKEN)
+      return Promise.reject(new Error(NO_TOKEN))
     }
     return axios.post<AddCartParams, AxiosResponse>(`${baseUrl}/cart`, body, {
       headers: {

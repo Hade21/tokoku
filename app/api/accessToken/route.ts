@@ -15,22 +15,21 @@ export async function GET() {
   const { exp } = jwt_decode<JwtPayload>(accessToken)
   const isExpired = Date.now() > exp! * 1000
 
-  if (isExpired) {
+  if (!isExpired) {
     try {
-      axios.post('https://tokoku-server.fly.dev/api/v1/user/refresh', { refreshToken })
-        .then(res => {
-          cookies().set('token', JSON.stringify({ accessToken: res.data.accessToken, refreshToken }), {
-            httpOnly: true,
-            secure: false,
-            maxAge: 24 * 60 * 60 * 1000,
-            sameSite: 'strict'
-          })
-          return NextResponse.json({ message: 'Success', accessToken: res.data.accessToken })
-        })
-        .catch(err => { throw new Error(err) })
+      const res = await axios({ method: "POST", url: 'https://tokoku-server.fly.dev/api/v1/user/refresh', data: { refreshToken } })
+      cookies().set('token', JSON.stringify({ accessToken: res.data.accessToken, refreshToken }), {
+        httpOnly: true,
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: 'strict'
+      })
+      return NextResponse.json({ message: 'Success', accessToken: res.data.accessToken })
     } catch (error) {
       return NextResponse.json(error)
     }
   }
-  return NextResponse.json({ message: "success", accessToken })
+  else {
+    return NextResponse.json({ message: "success", accessToken })
+  }
 }
