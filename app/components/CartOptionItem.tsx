@@ -1,10 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
+import { redirect } from "next/navigation";
 import Button from "./Button";
 import Counter from "./Counter";
 import Selector from "./Selector";
 import { CartOptionProps } from "@/types";
 import { useAddToCart } from "@/hooks/queryUserHooks";
+import Modals from "./Modals";
+import axios from "axios";
 
 const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const { variantOption, colorOption, stocks, _id } = props;
@@ -14,6 +17,8 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const { mutate, data, isLoading, isError, isSuccess, error } = useAddToCart();
 
   const handleAddToCart = async () => {
+    if (!_id || !variant || !color || !count)
+      return alert("Pick variant/color!");
     const body = {
       cart: {
         _id,
@@ -26,7 +31,11 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   };
 
   useEffect(() => {
-    console.log(isError, error);
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        redirect("/user/login");
+      }
+    }
   }, [isError]);
   useEffect(() => {
     if (isSuccess) {
@@ -62,6 +71,9 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
           Add to Cart
         </Button>
       </div>
+      {isSuccess && (
+        <Modals title="Product Added" desc="Items has added to your cart" />
+      )}
     </div>
   );
 };
