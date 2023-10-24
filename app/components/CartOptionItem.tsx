@@ -14,20 +14,28 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const [variant, setVariant] = React.useState("");
   const [color, setColor] = React.useState("");
   const [count, setCount] = React.useState(1);
+  const [modal, setModal] = React.useState(false);
+  const [modalTitle, setModalTitle] = React.useState("");
+  const [modalDesc, setModalDesc] = React.useState("");
   const { mutate, data, isLoading, isError, isSuccess, error } = useAddToCart();
 
   const handleAddToCart = async () => {
-    if (!_id || !variant || !color || !count)
-      return alert("Pick variant/color!");
-    const body = {
-      cart: {
-        _id,
-        variant,
-        color,
-        count,
-      },
-    };
-    mutate(body);
+    if (!_id || !variant || !color || !count) {
+      setModal(true);
+      setModalTitle("Invalid Entry!");
+      setModalDesc("Please pick product variant/color!");
+      return;
+    } else {
+      const body = {
+        cart: {
+          _id,
+          variant,
+          color,
+          count,
+        },
+      };
+      mutate(body);
+    }
   };
 
   useEffect(() => {
@@ -36,15 +44,18 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
         redirect("/user/login");
       }
     } else if (isError) {
+      console.log(error);
       redirect("/user/login");
     }
   }, [isError]);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && (data?.status === 200 || 201)) {
       setCount(1);
       setVariant("");
       setColor("");
-      console.log(data);
+      setModal(true);
+      setModalTitle("Success");
+      setModalDesc("Product added to cart");
     }
   }, [isSuccess]);
 
@@ -73,6 +84,13 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
           Add to Cart
         </Button>
       </div>
+      <Modals
+        title={modalTitle}
+        desc={modalDesc}
+        button="OK"
+        isOpen={modal}
+        setIsOpen={setModal}
+      />
     </div>
   );
 };

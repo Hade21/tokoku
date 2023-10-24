@@ -1,6 +1,5 @@
 import { Footer, Header } from "@/app/components";
 import HydrateProduct from "./hydrateProduct";
-import ProductDetail from "./product";
 
 const DetailProduct = ({ params }: { params: { id: string } }) => {
   const { id } = params;

@@ -15,7 +15,7 @@ export async function GET() {
   const { exp } = jwt_decode<JwtPayload>(accessToken)
   const isExpired = Date.now() > exp! * 1000
 
-  if (!isExpired) {
+  if (isExpired) {
     try {
       const res = await axios({ method: "POST", url: 'https://tokoku-server.fly.dev/api/v1/user/refresh', data: { refreshToken } })
       cookies().set('token', JSON.stringify({ accessToken: res.data.accessToken, refreshToken }), {

@@ -14,7 +14,6 @@ class UserServices {
   async addToCart(body: AddCartParams) {
     const NO_TOKEN = "No access token"
     const data = await GetTokenCookies()
-    console.log("🚀 ~ file: userApi.ts:17 ~ UserServices ~ addToCart ~ data:", data)
     if (data.message === NO_TOKEN) {
       return Promise.reject(new Error(NO_TOKEN))
     }
@@ -23,11 +22,6 @@ class UserServices {
         Authorization: `Bearer ${data.accessToken}`
       }
     })
-  }
-  async getRefreshToken(refreshToken: string) {
-    const res = await axios.post<String, AxiosResponse>('https://tokoku-server.fly.dev/api/v1/user/refresh', { refreshToken })
-    console.log("🚀 ~ file: userApi.ts:29 ~ UserServices ~ getRefreshToken ~ res:", res)
-    return res
   }
 }
 

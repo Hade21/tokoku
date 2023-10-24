@@ -13,7 +13,7 @@ export default async function ProductListWrapper({ title }: ProductTitle) {
     "New Arrivals": { sort: "createdAt", page: 1 },
     Popular: { sort: "totalRating", page: 1 },
     "Top Selling": { sort: "sold", page: 1 },
-  }[title] || { sort: "createdAt", page: 1 };
+  }[title];
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(["product"], () =>
