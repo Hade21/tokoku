@@ -34,7 +34,7 @@ const ProductDetail = ({ id }: { id: string }) => {
 
   return (
     <div className="mx-auto my-4 w-10/12">
-      <section className="flex flex-col gap-2 md:grid md:grid-cols-2 md:grid-rows-1">
+      <section className="flex flex-col gap-2 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-4">
         <div className="img">
           <BiArrowBack
             className="mb-4 cursor-pointer text-3xl"
