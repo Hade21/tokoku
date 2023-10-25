@@ -25,7 +25,10 @@ const SearchBar: React.FC = () => {
         // value={searchVal}
         // onChange={handleSearch}
       />
-      <label htmlFor="input" className="flex cursor-pointer items-center gap-1">
+      <label
+        htmlFor="search"
+        className="flex cursor-pointer items-center gap-1"
+      >
         <FaSearch />
         Search
       </label>

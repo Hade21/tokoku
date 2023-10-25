@@ -1,23 +1,15 @@
 import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  const { accessToken, refreshToken, maxAge } = await req.json()
-  const cookieObject = { accessToken, refreshToken, maxAge }
+  const { accessToken, refreshToken } = await req.json()
 
-  cookies().set('token', JSON.stringify(cookieObject), {
+  cookies().set('token', JSON.stringify({ accessToken, refreshToken }), {
     httpOnly: true,
     secure: true,
-    maxAge,
+    maxAge: 24 * 60 * 60 * 1000,
     sameSite: 'strict'
   })
 
-  return Response.json({ message: "success" })
-  // res.setHeader('Set-Cookie', cookie.serialize('token', JSON.stringify(cookieObject), {
-  //   httpOnly: true,
-  //   secure: true,
-  //   maxAge,
-  //   sameSite: 'strict',
-  // }))
-  // res.status(200).json({ message: 'success' })
-
+  return NextResponse.json({ message: "success" })
 }

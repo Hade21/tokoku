@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
 import userServices from '@/services/userApi'
-import { UserData } from '@/types';
+import { AddCartParams, UserData } from '@/types';
 
 
 
@@ -10,4 +10,8 @@ export const useLogin = () => {
 
 export const useRegister = () => {
   return useMutation({ mutationFn: (user: Omit<UserData, '_id' | 'address'>) => userServices.register(user), })
+}
+
+export const useAddToCart = () => {
+  return useMutation({ mutationFn: (body: AddCartParams) => userServices.addToCart(body), })
 }

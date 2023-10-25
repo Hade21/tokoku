@@ -44,7 +44,10 @@ const Button: React.FC<ButtonProps> = ({
           <LoadingAnimation
             size={20}
             color={variant === "primary" ? "#ffffff" : "#0A2472"}
-            wrapperStyle={{ transition: "all 0.3s ease-in-out" }}
+            wrapperStyle={{
+              transition: "all 0.3s ease-in-out",
+              marginRight: "2rm",
+            }}
           />
         ) : null}
         {children}

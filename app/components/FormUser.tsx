@@ -26,13 +26,14 @@ import {
   validatePassMatch,
   validatePassword,
   validatePhone,
+  resetUserState,
 } from "../../store/userSlice";
 import AlertAnimation from "./AlertAnimation";
 import Input from "./FormInput";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { useLogin, useRegister } from "@/hooks/queryUserHooks";
-import { SetTokenCookies } from "../api/route";
+import { SetTokenCookies } from "@/app/lib/tokenCookies";
 
 interface FormUserProps {
   variant: "login" | "register";
@@ -116,14 +117,15 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorLogin, dispatch]);
   useEffect(() => {
     if (isSuccessLogin) {
-      const { token: accessToken, refreshToken, maxAge } = dataLogin.data;
-      SetTokenCookies({ accessToken, refreshToken, maxAge })
+      const { token: accessToken, refreshToken } = dataLogin.data;
+      SetTokenCookies({ accessToken, refreshToken })
         .then((res) => {
           if (!res.ok) {
             throw new Error("Something went wrong!");
           }
           if (res.ok) {
             navigate.push("/");
+            dispatch(resetUserState());
           }
         })
         .catch((err) => {
@@ -142,6 +144,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
   }, [errorRegister, dispatch]);
   useEffect(() => {
     if (isSuccessRegister) {
+      dispatch(resetUserState());
       navigate.push("/user/login");
     }
   }, [isSuccessRegister, navigate]);
