@@ -147,7 +147,7 @@ const FormUser: React.FC<FormUserProps> = ({ variant }) => {
       dispatch(resetUserState());
       navigate.push("/user/login");
     }
-  }, [isSuccessRegister, navigate]);
+  }, [isSuccessRegister, navigate, dispatch]);
   useEffect(() => {
     dispatch(setErrMsg(""));
   }, [firstName, lastName, email, password, passwordMatch, phone, dispatch]);

@@ -47,7 +47,7 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
       console.log(error);
       redirect("/user/login");
     }
-  }, [isError]);
+  }, [isError, error]);
   useEffect(() => {
     if (isSuccess && (data?.status === 200 || 201)) {
       setCount(1);
@@ -57,7 +57,7 @@ const CartOptionItem: React.FC<CartOptionProps> = (props) => {
       setModalTitle("Success");
       setModalDesc("Product added to cart");
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
   return (
     <div className="flex w-full flex-col justify-start gap-2 px-4 xl:gap-1">
