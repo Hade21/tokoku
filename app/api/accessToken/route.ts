@@ -9,6 +9,7 @@ export async function GET() {
   const parsedCookies = JSON.parse(tokenCookies?.value ?? '{}')
   const accessToken = parsedCookies.accessToken ?? undefined
   const refreshToken = parsedCookies.refreshToken ?? undefined
+  const _id = parsedCookies._id ?? undefined
   if (!accessToken) {
     return NextResponse.json({ message: "No access token" })
   }
@@ -24,12 +25,12 @@ export async function GET() {
         maxAge: 24 * 60 * 60 * 1000,
         sameSite: 'strict'
       })
-      return NextResponse.json({ message: 'Success', accessToken: res.data.accessToken })
+      return NextResponse.json({ message: 'Success', data: { _id, accessToken: res.data.accessToken } })
     } catch (error) {
       return NextResponse.json(error)
     }
   }
   else {
-    return NextResponse.json({ message: "success", accessToken })
+    return NextResponse.json({ message: "success", data: { _id, accessToken } })
   }
 }

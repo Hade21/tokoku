@@ -3,9 +3,8 @@ import productServices from '../services/productApi'
 import { ProductAPIParams } from '@/types'
 
 export const useGetProducts = (params: ProductAPIParams) => {
-  // return useQuery(['products', params], () => productServices.getProducts(params))
   return useQuery({
-    queryKey: ['product'],
+    queryKey: ['product', params],
     queryFn: () => productServices.getProducts(params),
   })
 }
