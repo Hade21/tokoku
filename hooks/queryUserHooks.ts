@@ -19,3 +19,10 @@ export const useAddToCart = () => {
 export const useLogout = () => {
   return useMutation({ mutationFn: () => userServices.logout() })
 }
+
+export const useGetUserData = () => {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: () => userServices.getUserData(),
+  })
+}

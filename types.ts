@@ -111,7 +111,7 @@ export type UserData = {
     role: 'admin' | 'user' | 'seller',
     cart: string[],
     wishlist: string[],
-    createdAt: Date
+    createdAt: number
 }
 
 export type loginResponse = {
