@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import jwt_decode, { JwtPayload } from 'jwt-decode'
-import userServices from "@/services/userApi"
 import axios from 'axios'
 
 export async function GET() {
@@ -19,7 +18,7 @@ export async function GET() {
   if (isExpired) {
     try {
       const res = await axios({ method: "POST", url: 'https://tokoku-server.fly.dev/api/v1/user/refresh', data: { refreshToken } })
-      cookies().set('token', JSON.stringify({ accessToken: res.data.accessToken, refreshToken }), {
+      cookies().set('token', JSON.stringify({ _id, accessToken: res.data.accessToken, refreshToken }), {
         httpOnly: true,
         secure: false,
         maxAge: 24 * 60 * 60 * 1000,
