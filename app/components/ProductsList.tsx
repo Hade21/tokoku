@@ -32,8 +32,8 @@ const Products: React.FC<ProductsProps> = (params: ProductsProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setData(userData.data.data.user));
-      console.log(userData.data.data.user);
+      dispatch(setData(userData.data.user));
+      console.log(userData.data.user);
     }
   }, [isSuccess, userData]);
 

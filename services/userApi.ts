@@ -29,7 +29,7 @@ class UserServices {
     if (data.message === NO_TOKEN) {
       return Promise.reject(new Error(NO_TOKEN))
     }
-    return axios.get<AxiosResponse>(`${baseUrl}/${data.data._id}`, {
+    return axios.get(`${baseUrl}/${data.data._id}`, {
       headers: {
         Authorization: `Bearer ${data.data.accessToken}`
       }
