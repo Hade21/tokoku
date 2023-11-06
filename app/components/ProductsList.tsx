@@ -6,7 +6,7 @@ import { useGetProducts } from "@/hooks/queryProductHooks";
 import { useGetUserData } from "@/hooks/queryUserHooks";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks/reduxHooks";
-import { setData } from "@/store/userDataSlice";
+import { resetData, setData } from "@/store/userDataSlice";
 
 interface ProductsProps {
   sort: string;
@@ -33,9 +33,13 @@ const Products: React.FC<ProductsProps> = (params: ProductsProps) => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setData(userData.data.user));
-      console.log(userData.data.user);
     }
-  }, [isSuccess, userData]);
+  }, [isSuccess, userData, dispatch]);
+  useEffect(() => {
+    if (isError) {
+      dispatch(resetData());
+    }
+  }, [isError, dispatch, errorUserData]);
 
   if (isLoading) return <LoadingAnimation size={60} />;
 

@@ -40,10 +40,10 @@ class UserServices {
     if (data.message === NO_TOKEN) {
       return Promise.reject(new Error(NO_TOKEN))
     }
-    return axios.get(baseUrl + '/logout', {
+    return axios.post<{ refreshToken: string }, AxiosResponse>(baseUrl + '/logout', { refreshToken: data.data.refreshToken }, {
       headers: {
         Authorization: `Bearer ${data.data.accessToken}`
-      }
+      },
     })
   }
 }

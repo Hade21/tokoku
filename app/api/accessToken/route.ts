@@ -24,12 +24,12 @@ export async function GET() {
         maxAge: 24 * 60 * 60 * 1000,
         sameSite: 'strict'
       })
-      return NextResponse.json({ message: 'Success', data: { _id, accessToken: res.data.accessToken } })
+      return NextResponse.json({ message: 'Success', data: { _id, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken } })
     } catch (error) {
       return NextResponse.json(error)
     }
   }
   else {
-    return NextResponse.json({ message: "success", data: { _id, accessToken } })
+    return NextResponse.json({ message: "success", data: { _id, accessToken, refreshToken } })
   }
 }

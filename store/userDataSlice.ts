@@ -20,9 +20,12 @@ const userDataSlice = createSlice({
   reducers: {
     setData(state, action) {
       return { ...state, ...action.payload }
+    },
+    resetData(state) {
+      return initialState
     }
   }
 })
 
-export const { setData } = userDataSlice.actions
+export const { setData, resetData } = userDataSlice.actions
 export default userDataSlice.reducer

@@ -5,12 +5,11 @@ import { FiLogIn } from "react-icons/fi";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import LoginButton from "./LoginButton";
 
 const listMenu = [
   { href: "/cart", label: "Cart", icon: <FaShoppingCart /> },
   { href: "/transaction", label: "Transaction", icon: <BsReceipt /> },
-  { href: "/user/login", label: "Login", icon: <FiLogIn /> },
-  { href: "/profile", label: "Profile", icon: <FaUserCircle /> },
 ];
 
 const Header: React.FC = () => {
@@ -38,6 +37,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
           ))}
+          <LoginButton hamburger={false} />
         </ul>
         <ul className="lg:hidden">
           <HamburgerMenu lists={listMenu} />

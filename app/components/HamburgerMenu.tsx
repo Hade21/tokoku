@@ -4,6 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import UseAnimations from "react-useanimations";
 import menu2 from "react-useanimations/lib/menu2";
 import Link from "next/link";
+import LoginButton from "./LoginButton";
 
 interface HamburgerMenuProps {
   lists: {
@@ -31,11 +32,11 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
           leaveTo="transform -translate-y-full blur-md bg-opacity-40"
         >
           <Menu.Items
-            className="absolute -right-8 top-[6rem] -z-50 inline-block w-screen divide-y  divide-slate-200 rounded-b-md bg-white shadow-sm shadow-slate-300 md:top-[3.6rem] md:flex md:flex-row md:justify-between md:divide-x md:divide-y-0"
+            className="absolute -right-8 top-[6rem] -z-50 inline-block w-screen divide-y divide-slate-200 rounded-b-md bg-white shadow-sm shadow-slate-300 md:top-[3.6rem] md:flex md:flex-row md:justify-between md:divide-x md:divide-y-0"
             as="ul"
           >
             {lists.map((item) => (
-              <Menu.Item key={item.href} as="li">
+              <Menu.Item key={item.href} as="li" className="w-full">
                 {({ active }) => (
                   <Link
                     href={item.href as string}
@@ -49,6 +50,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ lists }) => {
                 )}
               </Menu.Item>
             ))}
+            <LoginButton hamburger={true} />
           </Menu.Items>
         </Transition>
       </Menu>
