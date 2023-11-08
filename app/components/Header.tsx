@@ -5,17 +5,16 @@ import { FiLogIn } from "react-icons/fi";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import LoginButton from "./LoginButton";
 
 const listMenu = [
   { href: "/cart", label: "Cart", icon: <FaShoppingCart /> },
   { href: "/transaction", label: "Transaction", icon: <BsReceipt /> },
-  { href: "/user/login", label: "Login", icon: <FiLogIn /> },
-  { href: "/profile", label: "Profile", icon: <FaUserCircle /> },
 ];
 
 const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-2 grid-rows-2 items-center justify-between bg-white bg-opacity-40 px-8 py-6 text-oxford-blue shadow-sm backdrop-blur-lg dark:bg-oxford-blue dark:bg-opacity-70 dark:text-orange-cream dark:shadow-md md:flex">
+    <header className="sticky top-0 z-30 grid grid-cols-2 grid-rows-2 items-center justify-between bg-white bg-opacity-40 px-8 py-6 text-oxford-blue shadow-sm backdrop-blur-lg dark:bg-oxford-blue dark:bg-opacity-70 dark:text-orange-cream dark:shadow-md md:flex">
       <div className="logo flex items-center gap-2 md:text-lg xl:text-2xl 2xl:text-4xl">
         <span className="text-2xl xl:text-4xl 2xl:text-6xl">
           <FaOpencart />
@@ -38,6 +37,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
           ))}
+          <LoginButton hamburger={false} />
         </ul>
         <ul className="lg:hidden">
           <HamburgerMenu lists={listMenu} />

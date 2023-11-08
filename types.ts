@@ -106,16 +106,21 @@ export type UserData = {
     firstName: string,
     lastName: string,
     email: string,
-    address: string,
+    address: string[],
     phone: string,
-    password: string,
+    role: 'admin' | 'user' | 'seller',
+    cart: string[],
+    wishlist: string[],
+    createdAt: number
 }
 
 export type loginResponse = {
     message: string,
-    token: string,
-    refreshToken: string,
-    maxAge: number,
+    data: {
+        token: string,
+        refreshToken: string,
+        _id: string,
+    }
 }
 
 export type registerResponse = {

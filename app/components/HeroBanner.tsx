@@ -24,7 +24,7 @@ const HeroBanner: React.FC = () => {
           Buy now
         </Button>
       </Link>
-      <div className="z-30 text-right text-base font-semibold">
+      <div className="z-10 text-right text-base font-semibold">
         <p className="text-slate-950 dark:text-slate-400">Description</p>
         <p className="text-slate-700 dark:text-slate-200">
           New arrival dress set couple with muslims koko

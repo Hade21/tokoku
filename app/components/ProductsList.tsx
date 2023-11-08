@@ -3,6 +3,10 @@ import CardProduct from "./CardProduct";
 import { Product } from "@/types";
 import LoadingAnimation from "./LoadingAnimation";
 import { useGetProducts } from "@/hooks/queryProductHooks";
+import { useGetUserData } from "@/hooks/queryUserHooks";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { resetData, setData } from "@/store/userDataSlice";
 
 interface ProductsProps {
   sort: string;
@@ -11,6 +15,7 @@ interface ProductsProps {
 
 const Products: React.FC<ProductsProps> = (params: ProductsProps) => {
   const { sort, page } = params;
+  const dispatch = useAppDispatch();
   const title =
     {
       createdAt: "New Arrivals",
@@ -18,6 +23,23 @@ const Products: React.FC<ProductsProps> = (params: ProductsProps) => {
       sold: "Top Selling",
     }[sort] || "New Arrivals";
   const { data, isLoading, error } = useGetProducts({ sort, page });
+  const {
+    data: userData,
+    isError,
+    isSuccess,
+    error: errorUserData,
+  } = useGetUserData();
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setData(userData.data.user));
+    }
+  }, [isSuccess, userData, dispatch]);
+  useEffect(() => {
+    if (isError) {
+      dispatch(resetData());
+    }
+  }, [isError, dispatch, errorUserData]);
 
   if (isLoading) return <LoadingAnimation size={60} />;
 
