@@ -7,3 +7,4 @@ export { default as Footer } from './Footer'
 export { default as Products } from "./ProductListWrapper"
 export { default as FormUser } from "./FormUser"
 export { default as UserAnimation } from "./UserAnimation"
+export { default as CartProduct } from './CartProduct'
