@@ -1,7 +1,6 @@
 import React from "react";
-import { FaShoppingCart, FaUserCircle, FaOpencart } from "react-icons/fa";
+import { FaShoppingCart, FaOpencart } from "react-icons/fa";
 import { BsReceipt } from "react-icons/bs";
-import { FiLogIn } from "react-icons/fi";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import SearchBar from "./SearchBar";

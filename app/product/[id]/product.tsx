@@ -6,13 +6,11 @@ import { useGetDetailProduct } from "@/hooks/queryProductHooks";
 import axios from "axios";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
-import { BiArrowBack } from "react-icons/bi";
-import { useRouter } from "next/navigation";
+import { BackButton } from "@/app/components";
 
 const ProductDetail = ({ id }: { id: string }) => {
   const { data, isLoading, error, isError } = useGetDetailProduct(id);
   const productData = data?.item;
-  const navigate = useRouter();
 
   if (isError) {
     if (axios.isAxiosError(error))
@@ -36,10 +34,7 @@ const ProductDetail = ({ id }: { id: string }) => {
     <div className="mx-auto my-4 w-10/12">
       <section className="flex flex-col gap-2 md:grid md:grid-cols-2 md:grid-rows-1 md:gap-4">
         <div className="img">
-          <BiArrowBack
-            className="mb-4 cursor-pointer text-3xl"
-            onClick={() => navigate.back()}
-          />
+          <BackButton className="mb-4" />
           <ImagesProduct img={productData.images} _id={productData._id} />
         </div>
         <div className="detail">
