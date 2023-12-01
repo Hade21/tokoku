@@ -3,10 +3,22 @@ import React from "react";
 import { Button } from "@/app/components";
 import Image from "next/image";
 import { FiEdit3 } from "react-icons/fi";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { BiSave } from "react-icons/bi";
+import { useGetUserData } from "@/hooks/queryUserHooks";
+import {
+  changeEmail,
+  changeFirstName,
+  changeLastName,
+  changePhone,
+} from "@/store/userDataSlice";
 
 const ProfileData: React.FC = () => {
+  const [edit, setEdit] = React.useState(false);
+  const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.userData);
+  const { data } = useGetUserData();
+  console.log("🚀 ~ file: profileData.tsx:14 ~ data:", data);
   return (
     <div>
       <section className="mb-4 flex items-center justify-between gap-6 px-6">
@@ -23,24 +35,87 @@ const ProfileData: React.FC = () => {
         </nav>
         <div className="flex-1">
           <h1 className="text-3xl font-semibold text-oxford-blue">
-            {`${profile.firstName} ${profile.lastName}`}
+            {!edit ? (
+              `${profile.firstName} ${profile.lastName}`
+            ) : (
+              <div className="flex w-full flex-col gap-2">
+                <input
+                  className="rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-bice-blue"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  value={profile.firstName}
+                  placeholder="Your firstname"
+                  onChange={(e) => dispatch(changeFirstName(e.target.value))}
+                />
+                <input
+                  className="rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-bice-blue"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={profile.lastName}
+                  placeholder="Your lastname"
+                  onChange={(e) => dispatch(changeLastName(e.target.value))}
+                />
+              </div>
+            )}
           </h1>
         </div>
         <div className="">
-          <Button type="button" variant="secondary">
-            <span className="flex items-center gap-2">
-              <FiEdit3 /> Edit
-            </span>
-          </Button>
+          {edit ? (
+            <Button
+              type="button"
+              variant="primary"
+              onClick={() => setEdit(false)}
+            >
+              <span className="flex items-center gap-2">
+                <BiSave /> Save
+              </span>
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setEdit(true)}
+            >
+              <span className="flex items-center gap-2">
+                <FiEdit3 /> Edit
+              </span>
+            </Button>
+          )}
         </div>
       </section>
       <section className="mb-4 border-t-2 border-white py-2">
         <h1 className="text-lg font-semibold">Email</h1>
-        <p className="p-2 text-gray-500">{profile.email}</p>
+        {!edit ? (
+          <p className="p-2 text-gray-500">{profile.email}</p>
+        ) : (
+          <input
+            className="rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-bice-blue"
+            type="text"
+            name="email"
+            id="email"
+            value={profile.email}
+            placeholder="Your email"
+            onChange={(e) => dispatch(changeEmail(e.target.value))}
+          />
+        )}
       </section>
       <section className="mb-4 border-t-2 border-white py-2">
         <h1 className="text-lg font-semibold">Phone</h1>
-        <p className="text-gray-500">{profile.phone}</p>
+        {!edit ? (
+          <p className="text-gray-500">{profile.phone}</p>
+        ) : (
+          <input
+            className="rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-bice-blue"
+            type="text"
+            name="phone"
+            id="phone"
+            value={profile.phone}
+            placeholder="Your phone number"
+            onChange={(e) => dispatch(changePhone(e.target.value))}
+          />
+        )}
       </section>
       <section className="mb-4 border-t-2 border-white py-2">
         <h1 className="text-lg font-semibold">Addresses</h1>
