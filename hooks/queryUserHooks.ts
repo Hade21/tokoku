@@ -26,3 +26,10 @@ export const useGetUserData = () => {
     queryFn: () => userServices.getUserData(),
   })
 }
+
+export const getCart = () => {
+  return useQuery({
+    queryKey: ['cart'],
+    queryFn: () => userServices.getCart()
+  })
+}

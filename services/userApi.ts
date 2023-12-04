@@ -46,6 +46,17 @@ class UserServices {
       },
     })
   }
+  async getCart() {
+    const data = await GetTokenCookies()
+    if (data.message === NO_TOKEN) {
+      return Promise.reject(new Error(NO_TOKEN))
+    }
+    return axios.get(baseUrl + '/cart', {
+      headers: {
+        Authorization: `Bearer ${data.data.accessToken}`
+      }
+    })
+  }
 }
 
 export default new UserServices
