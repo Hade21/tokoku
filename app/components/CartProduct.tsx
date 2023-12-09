@@ -1,5 +1,5 @@
 import React from "react";
-import { ImagesSlider } from ".";
+import ImageSlider from "./ImageSlider";
 
 interface CartProductProps {
   _id: string;
@@ -14,7 +14,7 @@ const CartProduct: React.FC<CartProductProps> = (props) => {
   return (
     <section className="flex justify-between gap-4 rounded-md bg-white px-4 py-6">
       <div className="img-sect flex min-w-[25%] items-center">
-        <ImagesSlider _id={props._id} img={props.img} />
+        <ImageSlider img={props.img} />
       </div>
       <div className="desc-sect flex flex-1 flex-col justify-between">
         <h3 className="text-xl font-semibold">{props.title}</h3>
