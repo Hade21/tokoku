@@ -8,3 +8,5 @@ export { default as Products } from "./ProductListWrapper"
 export { default as FormUser } from "./FormUser"
 export { default as UserAnimation } from "./UserAnimation"
 export { default as CartProduct } from './CartProduct'
+export { default as ImagesSlider } from './ImagesProduct'
+export { default as ErrorRelogin } from './ErrorRelogin'

@@ -27,7 +27,7 @@ export const useGetUserData = () => {
   })
 }
 
-export const getCart = () => {
+export const useGetCart = () => {
   return useQuery({
     queryKey: ['cart'],
     queryFn: () => userServices.getCart()

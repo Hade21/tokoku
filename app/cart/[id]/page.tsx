@@ -1,10 +1,10 @@
-import { CartProduct } from "@/app/components";
 import React from "react";
+import CartListWrapper from "./CartListWrapper";
 
-const Cart = ({ params }: { params: { id: string } }) => {
+const Cart = () => {
   return (
     <div>
-      <CartProduct />
+      <CartListWrapper />
     </div>
   );
 };
