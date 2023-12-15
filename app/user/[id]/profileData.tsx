@@ -24,7 +24,7 @@ const ProfileData: React.FC = () => {
 
   useMemo(() => {
     dispatch(setData(data?.data.user));
-  }, [data]);
+  }, [data, dispatch]);
 
   const handleSave = () => {
     mutate({ id: profile._id, body: profile });
