@@ -26,3 +26,7 @@ export const useGetUserData = () => {
     queryFn: () => userServices.getUserData(),
   })
 }
+
+export const useUpdateProfileData = () => {
+  return useMutation({ mutationFn: ({ id, body }: { id: string, body: UserData }) => userServices.updateProfileData({ id, body }) })
+}

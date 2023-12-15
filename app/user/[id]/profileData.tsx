@@ -1,11 +1,11 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Button } from "@/app/components";
 import Image from "next/image";
 import { FiEdit3 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { BiSave } from "react-icons/bi";
-import { useGetUserData } from "@/hooks/queryUserHooks";
+import { useGetUserData, useUpdateProfileData } from "@/hooks/queryUserHooks";
 import {
   changeEmail,
   changeFirstName,
@@ -13,16 +13,31 @@ import {
   changePhone,
   setData,
 } from "@/store/userDataSlice";
+import { redirect } from "next/navigation";
 
 const ProfileData: React.FC = () => {
   const [edit, setEdit] = React.useState(false);
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.userData);
   const { data } = useGetUserData();
-  console.log("🚀 ~ file: profileData.tsx:14 ~ data:", data?.data.user);
+  const { mutate, isSuccess, isLoading } = useUpdateProfileData();
+
   useMemo(() => {
     dispatch(setData(data?.data.user));
   }, [data]);
+
+  const handleSave = () => {
+    mutate({ id: profile._id, body: profile });
+  };
+
+  useEffect(() => {
+    if (isSuccess) setEdit(false);
+  }, [isSuccess]);
+
+  if (isSuccess && data === undefined) {
+    return redirect("/user/login");
+  }
+
   return (
     <div>
       <section
@@ -49,10 +64,12 @@ const ProfileData: React.FC = () => {
         </nav>
         <div
           className={`${
-            edit ? "col-span-2 col-start-2 row-start-2" : "flex-grow"
+            edit
+              ? "col-span-2 col-start-2 row-start-2"
+              : "flex-grow text-center sm:text-left "
           }`}
         >
-          <h1 className="text-3xl font-semibold text-oxford-blue">
+          <h1 className="text-3xl font-semibold text-oxford-blue ">
             {!edit ? (
               `${profile.firstName} ${profile.lastName}`
             ) : (
@@ -79,12 +96,13 @@ const ProfileData: React.FC = () => {
             )}
           </h1>
         </div>
-        <div className="col-span-2 self-end justify-self-end">
+        <div className="fixed right-3 top-4 col-span-2 justify-self-end sm:static">
           {edit ? (
             <Button
               type="button"
               variant="primary"
-              onClick={() => setEdit(false)}
+              onClick={handleSave}
+              loading={isLoading}
             >
               <span className="flex items-center gap-2">
                 <BiSave /> Save
