@@ -1,27 +1,34 @@
 import React from "react";
 import Link from "next/link";
 import Button from "./Button";
+import Image from "next/image";
 
 const HeroBanner: React.FC = () => {
   return (
-    <div className="mx-auto my-5 flex w-[95vw] flex-col rounded-lg bg-non-photo-blue bg-opacity-40 p-5">
-      <p className="text-base">SmallText</p>
-      <h3 className="text-4xl font-extrabold">MID TEXT</h3>
-      <img
-        src=""
+    <div className="relative mx-auto my-5 flex h-full min-h-[500px] w-[95vw] flex-col justify-around rounded-lg bg-white p-5 dark:bg-penn-blue md:grid md:grid-cols-2 md:grid-rows-2">
+      <Image
+        src="https://fashionvhal.myshopify.com/cdn/shop/products/01-foto-couple-gamis-ibu-dan-anak-mint-peach_1024x1024@2x.jpg?v=1520617994"
         alt="hero-image"
-        className="max-h-24 self-end overflow-visible"
+        className="absolute right-1/2 top-0 translate-x-1/2"
+        width={500}
+        height={500}
       />
-      <div className="flex justify-between">
-        <Link href="">
-          <Button type="button" variant="primary">
-            Button text
-          </Button>
-        </Link>
-        <div className="text-sm">
-          <p className="text-slate-950">Description</p>
-          <p className="text-slate-700">Description</p>
-        </div>
+      <div className="z-10 col-span-2 flex flex-col justify-end gap-2">
+        <p className="text-lg">July Flash Sale</p>
+        <h3 className="text-6xl font-extrabold drop-shadow-sm">
+          Hayuri Couple
+        </h3>
+      </div>
+      <Link href="" className="z-10 flex flex-col items-start justify-center">
+        <Button type="button" variant="primary">
+          Buy now
+        </Button>
+      </Link>
+      <div className="z-10 text-right text-base font-semibold">
+        <p className="text-slate-950 dark:text-slate-400">Description</p>
+        <p className="text-slate-700 dark:text-slate-200">
+          New arrival dress set couple with muslims koko
+        </p>
       </div>
     </div>
   );

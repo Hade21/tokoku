@@ -1,4 +1,5 @@
 import React from "react";
+import LoadingAnimation from "./LoadingAnimation";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type: "button" | "submit" | "reset";
@@ -6,14 +7,15 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant: "primary" | "secondary" | "tertiary";
   disabled?: boolean;
+  loading?: boolean;
 }
 
 const primary =
-  "inline-flex items-center space-x-2 rounded-lg bg-royal-blue px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-bice-blue hover:shadow-md focus:ring-2 focus:ring-bice-blue focus:ring-offset-2";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-royal-blue px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-bice-blue hover:shadow-md focus:ring-2 focus:ring-bice-blue focus:ring-offset-2";
 const secondary =
-  "inline-flex items-center space-x-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-royal-blue shadow-sm hover:bg-slate-300 hover:shadow-md focus:ring-2 focus:ring-slate-700 focus:ring-offset-2";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-white px-6 py-3 text-base font-semibold text-royal-blue shadow-md hover:bg-royal-blue hover:text-white hover:shadow-sm focus:ring-2 focus:ring-slate-700 focus:ring-offset-2";
 const tertiary =
-  "inline-flex items-center space-x-2 rounded-lg bg-gray-300 px-4 py-2 text-sm font-normal text-gray-500 shadow-sm";
+  "inline-flex items-center space-x-2 rounded-xl active:translate-y-1 transition-transform duration-200 bg-gray-300 px-6 py-3 text-base font-normal text-gray-500 shadow-sm";
 
 const Button: React.FC<ButtonProps> = ({
   type,
@@ -21,6 +23,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   variant,
   disabled = false,
+  loading = false,
 }) => {
   return (
     <>
@@ -28,7 +31,8 @@ const Button: React.FC<ButtonProps> = ({
         type={type}
         className={
           disabled
-            ? "cursor-not-allowed " + tertiary
+            ? "flex cursor-not-allowed gap-1 transition-all duration-200" +
+              tertiary
             : variant === "primary"
             ? primary
             : secondary
@@ -36,6 +40,16 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled}
       >
+        {loading ? (
+          <LoadingAnimation
+            size={20}
+            color={variant === "primary" ? "#ffffff" : "#0A2472"}
+            wrapperStyle={{
+              transition: "all 0.3s ease-in-out",
+              marginRight: "2rm",
+            }}
+          />
+        ) : null}
         {children}
       </button>
     </>

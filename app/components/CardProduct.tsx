@@ -1,26 +1,34 @@
-"use client";
 import React from "react";
-import Button from "./Button";
+import ImagesProduct from "./ImagesProduct";
+import CartOptionItem from "./CartOptionItem";
+import { AiFillStar } from "react-icons/ai";
+import { CardProductProps } from "@/types";
 
-interface CardProductProps {
-  img: string;
-  name: string;
-  price: number;
-  id: string;
-}
+const CardProduct: React.FC<CardProductProps> = (props) => {
+  const { img, name, price, id, variants, colors, stocks, rating } = props;
 
-const CardProduct: React.FC<CardProductProps> = ({ img, name, price, id }) => {
   return (
-    <div className="rounded-md bg-gray-200">
-      <img src="" alt="product-image" className="rounded-t-md" />
-      <div className="flex items-center justify-between p-2">
+    <div className="relative rounded-md bg-slate-100 shadow-lg dark:bg-penn-blue">
+      <ImagesProduct img={img} _id={id} />
+      <div className="group w-full p-4">
         <div>
-          <h1 className="text-lg">Product Name</h1>
-          <p className="text-sm font-bold text-red-500">Product Price</p>
+          <h1 className="mb-4 text-lg">{name}</h1>
+          <div className="flex justify-between">
+            <p className="flex items-center gap-1">
+              <AiFillStar className="text-xl text-yellow-500" />{" "}
+              <span>{rating}</span>
+            </p>
+            <p className="text-base font-bold text-red-500">Rp.{price}</p>
+          </div>
         </div>
-        <Button type="button" variant="secondary">
-          Add to Cart
-        </Button>
+        <div className="invisible absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center rounded-md bg-slate-400 bg-opacity-40 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:opacity-100">
+          <CartOptionItem
+            variantOption={variants}
+            colorOption={colors}
+            stocks={stocks}
+            _id={id}
+          />
+        </div>
       </div>
     </div>
   );
