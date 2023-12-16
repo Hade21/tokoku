@@ -28,7 +28,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
   }, []);
 
   return (
-    <div ref={targetRef}>
+    <div ref={targetRef} className="w-full">
       <Swiper
         pagination={{ dynamicBullets: true }}
         modules={[Pagination]}
@@ -37,7 +37,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
         {img?.map((image, key) => {
           return (
             <SwiperSlide key={key}>
-              <div className="relative flex w-full cursor-pointer justify-center rounded-t-md bg-white">
+              <div className="relative flex w-full justify-center rounded-t-md bg-white">
                 <Image
                   src={image.url}
                   width={width}

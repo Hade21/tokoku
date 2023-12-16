@@ -1,5 +1,6 @@
 import React from "react";
 import ImageSlider from "./ImageSlider";
+import { AiFillDelete } from "react-icons/ai";
 
 interface CartProductProps {
   _id: string;
@@ -12,17 +13,16 @@ interface CartProductProps {
 }
 const CartProduct: React.FC<CartProductProps> = (props) => {
   return (
-    <section className="flex justify-between gap-4 rounded-md bg-white px-4 py-6">
-      <div className="img-sect flex min-w-[25%] items-center">
+    <section className="flex justify-between gap-4 px-4 py-6">
+      <div></div>
+      <div className="img-sect min-w-[25%]">
         <ImageSlider img={props.img} />
       </div>
-      <div className="desc-sect flex flex-1 flex-col justify-between">
-        <h3 className="text-xl font-semibold">{props.title}</h3>
-        <p className="text-base font-semibold text-red-500">
-          Rp. {props.price}
-        </p>
+      <div className="desc-sect flex flex-1 flex-col justify-center">
+        <h3 className="text-xl font-semibold text-black">{props.title}</h3>
+        <p className="text-base font-bold text-red-500">Rp. {props.price}</p>
       </div>
-      <div className="detail-sect flex-1">
+      <div className="detail-sect flex-1 self-center">
         <p className="text-sm font-normal text-gray-500">
           Variant: {props.variant}
         </p>
@@ -33,9 +33,10 @@ const CartProduct: React.FC<CartProductProps> = (props) => {
           Quantity: {props.quantity}
         </p>
       </div>
-      <div className="action-sect flex justify-stretch text-white">
-        <p className="flex-1 items-center bg-yellow-400">Change Option</p>
-        <p className="flex-1 items-center bg-red-600">Delete</p>
+      <div className="action-sect flex justify-center text-white">
+        <p className="flex cursor-pointer items-center gap-2 rounded-md bg-red-600 px-6 transition-colors duration-200 hover:bg-red-500">
+          <AiFillDelete /> <span>Delete</span>
+        </p>
       </div>
     </section>
   );
