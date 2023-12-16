@@ -1,5 +1,5 @@
 import { GetTokenCookies } from '@/app/lib/tokenCookies';
-import { AddCartParams, UserForm, loginResponse, registerResponse } from '@/types';
+import { AddCartParams, UserData, UserForm, loginResponse, registerResponse } from '@/types';
 import axios, { AxiosResponse } from 'axios'
 
 const baseUrl = 'https://tokoku-server.fly.dev/api/v1/user'
@@ -44,6 +44,15 @@ class UserServices {
       headers: {
         Authorization: `Bearer ${data.data.accessToken}`
       },
+    })
+  }
+  async updateProfileData({ id, body }: { id: string, body: UserData }) {
+    const data = await GetTokenCookies()
+    if (data.message === NO_TOKEN) return Promise.reject(new Error(NO_TOKEN))
+    return axios.put(baseUrl + `/${id}`, body, {
+      headers: {
+        Authorization: `Bearer ${data.data.accessToken}`
+      }
     })
   }
 }

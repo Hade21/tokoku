@@ -5,6 +5,7 @@ const nextConfig = {
       "res.cloudinary.com",
       "fashionvhal.myshopify.com",
       "artsmidnorthcoast.com",
+      "img.freepik.com",
     ],
   },
 };
