@@ -1,16 +1,24 @@
 "use client";
 import React from "react";
-import { CartProduct, ErrorRelogin } from "@/app/components";
+import {
+  CartProduct,
+  CartProductLoading,
+  ErrorRelogin,
+} from "@/app/components";
 import { useGetCart } from "@/hooks/queryUserHooks";
 import { RadioGroup } from "@headlessui/react";
+import { redirect } from "next/navigation";
 
 const CartListWrapper = () => {
-  const { data, isSuccess } = useGetCart();
-  const products = data?.data.products;
+  const { data, isSuccess, isLoading } = useGetCart();
   const [checked, setChecked] = React.useState([]);
 
+  if (isLoading) {
+    return <CartProductLoading />;
+  }
+
   if (isSuccess && !data) {
-    return <ErrorRelogin />;
+    return redirect("/user/login");
   }
 
   if (data?.data.products.lenght === 0)
@@ -23,7 +31,7 @@ const CartListWrapper = () => {
       <RadioGroup>
         <RadioGroup.Label className="sr-only">Cart List</RadioGroup.Label>
         <div className="space-y-2">
-          {products.map((product: any) => {
+          {data?.data.products.map((product: any) => {
             return (
               <RadioGroup.Option
                 value={product}
