@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
 import userServices from '@/services/userApi'
-import { AddCartParams, UserData, UserForm } from '@/types';
+import { AddCartParams, CreateOrderBody, UserData, UserForm } from '@/types';
 
 
 
@@ -32,4 +32,8 @@ export const useGetCart = () => {
     queryKey: ['cart'],
     queryFn: () => userServices.getCart()
   })
+}
+
+export const useCheckout = () => {
+  return useMutation({ mutationFn: (body: CreateOrderBody) => userServices.checkout(body) })
 }

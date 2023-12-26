@@ -1,19 +1,75 @@
 "use client";
 import React, { Fragment } from "react";
-import { Button, CartProduct, CartProductLoading } from "@/app/components";
-import { useGetCart } from "@/hooks/queryUserHooks";
+import {
+  Button,
+  CartProduct,
+  CartProductLoading,
+  Modals,
+} from "@/app/components";
+import { useCheckout, useGetCart } from "@/hooks/queryUserHooks";
 import { redirect } from "next/navigation";
 import { Listbox, Transition } from "@headlessui/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
+import { AxiosError } from "axios";
 
 const CartListWrapper = () => {
-  const { data, isSuccess, isLoading } = useGetCart();
   const [payment, setPayment] = React.useState("");
-  console.log(data);
+  const [modals, setModals] = React.useState(false);
+  const [modalsContent, setModalsContent] = React.useState({
+    title: "",
+    desc: "",
+  });
+  const { data, isSuccess, isLoading, isError, error } = useGetCart();
+  const {
+    mutate,
+    data: checkoutData,
+    isSuccess: checkoutSuccess,
+    isLoading: checkoutLoading,
+    isError: checkoutError,
+    error: errorDataCheckout,
+  } = useCheckout();
+
+  React.useMemo(() => {
+    if (checkoutSuccess) {
+      if (checkoutData.status === 203) {
+        setModalsContent({
+          title: "Checkout Failed!",
+          desc: "We only accept COD right now",
+        });
+        setModals(true);
+      }
+      if (checkoutData.status === 201) {
+        setModalsContent({
+          title: "Checkout Success",
+          desc: "Your order is being processed. Thank you for shopping with us!",
+        });
+        setModals(true);
+      }
+    }
+    if (checkoutError) {
+      setModalsContent({
+        title: "Checkout Error",
+        desc: "Something went wrong! Please Try Again",
+      });
+      setModals(true);
+      console.log(errorDataCheckout);
+    }
+  }, [checkoutSuccess, checkoutError, checkoutData]);
+
+  const handleCheckout = () => {
+    if (!payment) {
+      setModalsContent({
+        title: "Payment Error",
+        desc: "Please select a payment method",
+      });
+      setModals(true);
+      return;
+    }
+    mutate({ COD: payment === "COD", appliedCoupon: false });
+  };
 
   if (isLoading) {
-    console.log(isLoading);
     return <CartProductLoading />;
   }
 
@@ -21,10 +77,14 @@ const CartListWrapper = () => {
     return redirect("/user/login");
   }
 
-  if (data?.data.products.lenght === 0)
-    return (
-      <div className="flex flex-col gap-4 bg-slate-300 p-6">Cart Empty</div>
-    );
+  if (isError && error instanceof AxiosError) {
+    if (error.response?.status === 404)
+      return (
+        <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-slate-300 p-6 text-xl font-bold text-oxford-blue">
+          {error.response.status} | {error.response?.data.message}
+        </div>
+      );
+  }
 
   return (
     <div className="bg-slate-300 p-6">
@@ -98,19 +158,31 @@ const CartListWrapper = () => {
               </div>
             </Listbox>
           </div>
-          <div className="checkout flex items-center justify-between gap-6 border-t-2 border-oxford-blue pt-2">
+          <div className="checkout flex items-center justify-between gap-6 border-t-2 border-oxford-blue pt-6">
             <h3 className="flex flex-grow justify-between text-2xl font-semibold text-royal-blue">
               <span>Total:</span>
               <span className="font-bold text-red-500">
                 Rp.{data?.data.cartTotal}
               </span>
             </h3>
-            <Button type="button" variant="primary" className="self-end">
+            <Button
+              type="button"
+              variant="primary"
+              className="self-end"
+              loading={checkoutLoading}
+              onClick={handleCheckout}
+            >
               Checkout
             </Button>
           </div>
         </div>
       </div>
+      <Modals
+        isOpen={modals}
+        title={modalsContent.title}
+        desc={modalsContent.desc}
+        setIsOpen={setModals}
+      />
     </div>
   );
 };
