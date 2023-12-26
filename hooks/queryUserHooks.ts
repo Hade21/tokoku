@@ -36,4 +36,7 @@ export const useGetCart = () => {
 
 export const useCheckout = () => {
   return useMutation({ mutationFn: (body: CreateOrderBody) => userServices.checkout(body) })
+
+export const useUpdateProfileData = () => {
+  return useMutation({ mutationFn: ({ id, body }: { id: string, body: UserData }) => userServices.updateProfileData({ id, body }) })
 }
