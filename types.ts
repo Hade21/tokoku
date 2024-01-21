@@ -151,3 +151,5 @@ export type AddCartParams = {
         color: string
     }
 }
+
+export type NewProduct = Omit<Product, | "_id" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
