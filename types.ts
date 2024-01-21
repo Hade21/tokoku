@@ -151,3 +151,7 @@ export type AddCartParams = {
         color: string
     }
 }
+export type CreateOrderBody = {
+    COD: boolean,
+    appliedCoupon: boolean
+}
