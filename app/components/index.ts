@@ -9,3 +9,4 @@ export { default as FormUser } from "./FormUser"
 export { default as UserAnimation } from "./UserAnimation"
 export { default as BackButton } from './BackButton'
 export { default as Input } from './GeneralInput'
+export { default as Dropzone } from './Dropzone'
