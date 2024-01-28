@@ -14,7 +14,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
       setWidth(targetRef.current.offsetWidth);
     }
   };
-
   React.useLayoutEffect(() => {
     testDimension();
     window.addEventListener("resize", testDimension);

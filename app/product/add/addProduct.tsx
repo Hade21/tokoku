@@ -9,9 +9,8 @@ const Product = () => {
         <BackButton />
       </div>
       <main>
-        <div className="img-tittle flex flex-col justify-between gap-6 lg:grid lg:grid-cols-2 lg:grid-rows-1">
+        <div className="img-tittle">
           <Dropzone />
-          <FormProduct type="add" />
         </div>
       </main>
     </div>
