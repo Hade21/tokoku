@@ -1,5 +1,6 @@
 import { BackButton, Button, Dropzone } from "@/app/components";
 import React from "react";
+import FormProduct from "../FormProduct";
 
 const Product = () => {
   return (
@@ -8,8 +9,9 @@ const Product = () => {
         <BackButton />
       </div>
       <main>
-        <div className="img-tittle">
+        <div className="img-tittle flex flex-col justify-between gap-6 lg:grid lg:grid-cols-2 lg:grid-rows-1">
           <Dropzone />
+          <FormProduct />
         </div>
       </main>
     </div>

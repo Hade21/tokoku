@@ -24,7 +24,7 @@ const Dropzone = () => {
     <>
       <div
         {...getRootProps({ className: "dropzone" })}
-        className="flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-md border-4 border-dotted border-slate-600 p-3"
+        className="flex h-fit w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-md border-4 border-dotted border-slate-600 p-3"
       >
         <input className="input-zone" {...getInputProps()} />
         <div className="img">

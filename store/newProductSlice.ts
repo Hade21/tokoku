@@ -44,7 +44,8 @@ const newProductSlice = createSlice({
             return { ...state, color: [...state.color, action.payload] }
         },
         setVariant(state, action: PayloadAction<string>) {
-            return { ...state, variant: [...state.variant, action.payload] }
+            const data = action.payload.split(',')
+            return { ...state, variant: data }
         },
         removeColor(state, action: PayloadAction<string>) {
             return { ...state, color: state.color.filter(color => color !== action.payload) }
