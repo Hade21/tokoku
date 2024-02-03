@@ -10,8 +10,8 @@ import {
   setTitle,
   setVariant,
 } from "@/store/newProductSlice";
-import useDebounceQuery from "@/utils/useDebounce";
-import React, { ReactEventHandler } from "react";
+import useDebounceQuery from "@/utils/debounce";
+import React from "react";
 
 const FormProduct = () => {
   const dispatch = useAppDispatch();
@@ -24,14 +24,6 @@ const FormProduct = () => {
   const category = useAppSelector((state) => state.newProduct.category);
   const brand = useAppSelector((state) => state.newProduct.brand);
   console.log("🚀 ~ FormProduct ~ variant:", variant);
-
-  const UseHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    useDebounceQuery({
-      fn: (e: React.ChangeEvent<HTMLInputElement>) =>
-        dispatch(setVariant(e.target.value)),
-      delay: 500,
-    });
-  };
 
   return (
     <form className="flex flex-col gap-3 rounded-md p-4 shadow-lg">
@@ -138,7 +130,7 @@ const FormProduct = () => {
             placeholder='Variants, e.g. "s, m, l, xl"'
             className="peer w-full rounded-md border border-non-photo-blue bg-transparent p-3 text-base transition-all duration-200 [appearance:textfield] placeholder:text-slate-500 focus:border-2 focus:border-royal-blue focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             value={variant.join(",")}
-            onChange={UseHandleChange}
+            onChange={(e) => dispatch(setVariant(e.target.value))}
           />
           <p className="absolute left-5 top-0 bg-white px-2 text-sm font-normal text-slate-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:p-0 peer-placeholder-shown:text-base ">
             Variants
