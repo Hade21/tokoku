@@ -156,4 +156,4 @@ export type CreateOrderBody = {
     appliedCoupon: boolean
 }
 
-export type NewProduct = Omit<Product, | "_id" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
+export type NewProduct = Omit<Product, | "_id" | "slug" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
