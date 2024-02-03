@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
 import productServices from '../services/productApi'
-import { ProductAPIParams } from '@/types'
+import { NewProduct, ProductAPIParams } from '@/types'
 
 export const useGetProducts = (params: ProductAPIParams) => {
   return useQuery({
@@ -11,4 +11,8 @@ export const useGetProducts = (params: ProductAPIParams) => {
 
 export const useGetDetailProduct = (id: string) => {
   return useQuery(['detailProduct', id], () => productServices.getDetailProduct(id))
+}
+
+export const useAddNewProduct = () => {
+  return useMutation({ mutationFn: (body: NewProduct) => productServices.addNewProduct(body) })
 }
