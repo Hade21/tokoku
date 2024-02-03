@@ -41,7 +41,8 @@ const newProductSlice = createSlice({
             return { ...state, slug: action.payload }
         },
         setColor(state, action: PayloadAction<string>) {
-            return { ...state, color: [...state.color, action.payload] }
+            const data = action.payload.split(',')
+            return { ...state, color: data }
         },
         setVariant(state, action: PayloadAction<string>) {
             const data = action.payload.split(',')
