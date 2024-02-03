@@ -152,4 +152,4 @@ export type AddCartParams = {
     }
 }
 
-export type NewProduct = Omit<Product, | "_id" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
+export type NewProduct = Omit<Product, | "_id" | "slug" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
