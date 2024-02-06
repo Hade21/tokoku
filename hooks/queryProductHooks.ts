@@ -16,3 +16,7 @@ export const useGetDetailProduct = (id: string) => {
 export const useAddNewProduct = () => {
   return useMutation({ mutationFn: (body: NewProduct) => productServices.addNewProduct(body) })
 }
+
+export const useUpdateProduct = () => {
+  return useMutation({ mutationFn: ({ id, body }: { id: string, body: NewProduct }) => productServices.updateProduct({ id, body }) })
+}

@@ -23,6 +23,17 @@ class ProductServices {
       }
     }).then(res => { return res.data }).catch(err => { return err })
   }
+  updateProduct = async ({ id, body }: { id: string, body: NewProduct }) => {
+    const data = await GetTokenCookies()
+    if (data.message === NO_TOKEN) {
+      return Promise.reject(new Error(NO_TOKEN))
+    }
+    return axios.put<NewProduct, AxiosResponse>(`${baseUrl}/${id}`, body, {
+      headers: {
+        Authorization: `Bearer ${data.data.accessToken}`
+      }
+    })
+  }
 }
 const productServices = new ProductServices
 export default productServices
