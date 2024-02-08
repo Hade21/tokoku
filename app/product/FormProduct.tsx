@@ -15,9 +15,10 @@ import React from "react";
 import { Button, Input } from "../components";
 import { useAddNewProduct, useUpdateProduct } from "@/hooks/queryProductHooks";
 import Modals from "../components/Modals";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [modal, setModal] = React.useState<boolean>(false);
   const [modalTitle, setModalTitle] = React.useState<string>("");
@@ -97,7 +98,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
       dispatch(reset);
       console.log(newProduct);
       setTimeout(() => {
-        redirect("/");
+        router.push("/");
       }, 500);
     }
     if (updateProduct) {
@@ -107,7 +108,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
       dispatch(reset());
       console.log(updateProduct);
       setTimeout(() => {
-        redirect(`/product/${id}`);
+        router.push(`/product/${id}`);
       }, 500);
     }
   }, [errorAddProduct, errorUpdate, newProduct, updateProduct, dispatch, id]);
