@@ -11,7 +11,6 @@ const initialState: NewProduct = {
     variant: [],
     description: "",
     price: 0,
-    slug: "",
     stocks: 0
 }
 
