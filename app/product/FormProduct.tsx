@@ -111,7 +111,15 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
         router.push(`/product/${id}`);
       }, 500);
     }
-  }, [errorAddProduct, errorUpdate, newProduct, updateProduct, dispatch, id]);
+  }, [
+    errorAddProduct,
+    errorUpdate,
+    newProduct,
+    updateProduct,
+    dispatch,
+    id,
+    router,
+  ]);
 
   return (
     <>
