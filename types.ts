@@ -151,6 +151,9 @@ export type AddCartParams = {
         color: string
     }
 }
+
+export type NewProduct = Omit<Product, | "_id" | "slug" | "createdAt" | "updatedAt" | "totalRating" | "ratings" | "images">
+
 export type CreateOrderBody = {
     COD: boolean,
     appliedCoupon: boolean

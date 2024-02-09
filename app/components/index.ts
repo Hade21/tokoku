@@ -14,3 +14,6 @@ export { default as ErrorRelogin } from './ErrorRelogin'
 export { default as CartProductLoading } from './CartProductLoading'
 export { default as Modals } from './Modals'
 export { default as BackButton } from './BackButton'
+export { default as Input } from './GeneralInput'
+export { default as Dropzone } from './Dropzone'
+
