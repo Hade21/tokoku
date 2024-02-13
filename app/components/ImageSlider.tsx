@@ -2,7 +2,10 @@ import Image from "next/image";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const ImageSlider = ({ img }: { img: { preview: string }[] }) => {
+interface ImageSliderProps {
+  img: [{ url: string }] | { url: string }[];
+}
+const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
   const targetRef = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState<number>(0);
 

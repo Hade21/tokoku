@@ -32,7 +32,19 @@ class ProductServices {
       headers: {
         Authorization: `Bearer ${data.data.accessToken}`
       }
-    })
+    }).then(res => { return res.data }).catch(err => { return err })
+  }
+  uploadImages = async ({ id, body }: { id: string, body: FormData }) => {
+    const data = await GetTokenCookies()
+    if (data.message === NO_TOKEN) {
+      return Promise.reject(new Error(NO_TOKEN))
+    }
+    return axios.put<FormData, AxiosResponse>(`${baseUrl}/uploads/${id}`, body, {
+      headers: {
+        Authorization: `Bearer ${data.data.accessToken}`,
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(res => { return res.data }).catch(err => { return err })
   }
 }
 const productServices = new ProductServices

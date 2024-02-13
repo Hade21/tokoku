@@ -36,9 +36,6 @@ const newProductSlice = createSlice({
         setStocks(state, action: PayloadAction<number>) {
             return { ...state, stocks: action.payload }
         },
-        setSlug(state, action: PayloadAction<string>) {
-            return { ...state, slug: action.payload }
-        },
         setColor(state, action: PayloadAction<string>) {
             const data = action.payload.split(',')
             return { ...state, color: data }
@@ -70,7 +67,6 @@ export const {
     removeVariant,
     reset,
     setColor,
-    setSlug,
     setVariant
 } = newProductSlice.actions
 export default newProductSlice.reducer

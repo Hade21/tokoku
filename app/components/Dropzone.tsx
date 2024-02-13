@@ -6,14 +6,23 @@ import useWindowsDimension from "@/utils/setWidth";
 import Button from "./Button";
 import ImageSlider from "./ImageSlider";
 
-const Dropzone = () => {
-  const [files, setFiles] = React.useState<Array<{ preview: string }>>([]);
+interface DropzoneProps {
+  files: File[];
+  setFiles: any;
+}
+const Dropzone: React.FC<DropzoneProps> = ({ files, setFiles }) => {
+  const [images, setImages] = React.useState<Array<{ url: string }>>([]);
   const { getInputProps, getRootProps, isDragActive } = useDropzone({
     accept: { "image/*": [] },
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
+          Object.assign(file, { url: URL.createObjectURL(file) })
+        )
+      );
+      setImages(
+        acceptedFiles.map((file) =>
+          Object.assign(file, { url: URL.createObjectURL(file) })
         )
       );
     },
@@ -51,7 +60,7 @@ const Dropzone = () => {
         <Button type="button" variant="primary">
           Click to select files
         </Button>
-        {files && <ImageSlider img={files} />}
+        {files && <ImageSlider img={images} />}
       </div>
     </>
   );
