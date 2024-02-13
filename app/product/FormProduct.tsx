@@ -119,7 +119,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
       return;
     }
     handleImages();
-    // type === "add" ? handleAddProduct() : handleUpdate();
+    type === "add" ? handleAddProduct() : handleUpdate();
   };
 
   React.useEffect(() => {
