@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 interface ImageSliderProps {
-  img: [{ url: string }];
+  img: [{ url: string }] | { url: string }[];
 }
 const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
   const targetRef = React.useRef<HTMLDivElement>(null);
