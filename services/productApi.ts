@@ -32,7 +32,7 @@ class ProductServices {
       headers: {
         Authorization: `Bearer ${data.data.accessToken}`
       }
-    })
+    }).then(res => { return res.data }).catch(err => { return err })
   }
 }
 const productServices = new ProductServices
