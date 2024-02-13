@@ -20,3 +20,7 @@ export const useAddNewProduct = () => {
 export const useUpdateProduct = () => {
   return useMutation({ mutationFn: ({ id, body }: { id: string, body: NewProduct }) => productServices.updateProduct({ id, body }) })
 }
+
+export const useUploadImages = () => {
+  return useMutation({ mutationFn: ({ id, body }: { id: string, body: FormData }) => productServices.uploadImages({ id, body }) })
+}

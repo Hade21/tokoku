@@ -2,7 +2,6 @@
 import React from "react";
 
 import { BackButton, Footer, Header } from "@/app/components";
-import Dropzone from "@/app/components/Dropzone";
 import LoadingAnimation from "@/app/components/LoadingAnimation";
 import FormProduct from "../FormProduct";
 
@@ -25,7 +24,6 @@ const Product = () => {
   const searchParams = useSearchParams();
   console.log(searchParams.get("id"));
   const { data, isLoading, error, status } = useGetDetailProduct(params.id);
-  console.log("🚀 ~ Product ~ data:", data);
 
   React.useEffect(() => {
     if (data) {
@@ -67,8 +65,7 @@ const Product = () => {
           <BackButton />
         </div>
         <main>
-          <div className="img-tittle flex flex-col justify-between gap-6 lg:grid lg:grid-cols-2 lg:grid-rows-1">
-            <Dropzone />
+          <div className="product">
             <FormProduct type="update" id={params.id} />
           </div>
         </main>
