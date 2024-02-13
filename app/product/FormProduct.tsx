@@ -65,6 +65,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
       return;
     }
     update({ id, body });
+    console.log("🚀 ~ handleUpdate ~ body:", body);
   };
   const handleAddProduct = () => {
     addProduct(body);
@@ -234,7 +235,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
             variant="primary"
             loading={loadingAddProduct || loadingUpdate}
           >
-            Add Product
+            {type === "add" ? "Add Product" : "Save Product"}
           </Button>
           <Button type="reset" variant="danger">
             Cancel
