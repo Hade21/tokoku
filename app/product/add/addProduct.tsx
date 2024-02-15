@@ -1,4 +1,4 @@
-import { BackButton, Button, Dropzone } from "@/app/components";
+import { BackButton } from "@/app/components";
 import React from "react";
 import FormProduct from "../FormProduct";
 
@@ -10,7 +10,7 @@ const Product = () => {
       </div>
       <main>
         <div className="img-tittle">
-          <Dropzone />
+          <FormProduct type="add" />
         </div>
       </main>
     </div>
