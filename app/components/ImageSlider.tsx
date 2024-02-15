@@ -29,7 +29,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
           return (
             <SwiperSlide key={key}>
               <Image
-                src={image.preview}
+                src={image.url}
                 width={0}
                 height={0}
                 alt="preview"
