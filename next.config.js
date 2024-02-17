@@ -6,6 +6,7 @@ const nextConfig = {
       "fashionvhal.myshopify.com",
       "artsmidnorthcoast.com",
       "img.freepik.com",
+      "developers.elementor.com"
     ],
   },
 };

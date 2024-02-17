@@ -55,7 +55,7 @@ const CartListWrapper = () => {
       setModals(true);
       console.log(errorDataCheckout);
     }
-  }, [checkoutSuccess, checkoutError, checkoutData]);
+  }, [checkoutSuccess, checkoutError, checkoutData, errorDataCheckout]);
 
   const handleCheckout = () => {
     if (!payment) {

@@ -1,24 +1,20 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import Image from "next/image";
-import "swiper/css";
-import "swiper/css/pagination";
 
 interface ImageSliderProps {
-  img: [{ url: string }];
+  img: [{ url: string }] | { url: string }[];
 }
 const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
   const targetRef = React.useRef<HTMLDivElement>(null);
-  const [width, setWidth] = React.useState(0);
+  const [width, setWidth] = React.useState<number>(0);
 
   const testDimension = () => {
     if (targetRef.current) {
       setWidth(targetRef.current.offsetWidth);
     }
   };
-
   React.useLayoutEffect(() => {
     testDimension();
     window.addEventListener("resize", testDimension);
@@ -29,30 +25,25 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ img }) => {
 
   return (
     <div ref={targetRef} className="w-full">
-      <Swiper
-        pagination={{ dynamicBullets: true }}
-        modules={[Pagination]}
-        autoplay={true}
-      >
-        {img?.map((image, key) => {
+      <Swiper slidesPerView={4.2} spaceBetween={10}>
+        {img.map((image, key) => {
           return (
             <SwiperSlide key={key}>
-              <div className="relative flex w-full justify-center rounded-t-md bg-white">
-                <Image
-                  src={image.url}
-                  width={width}
-                  height={0}
-                  alt="Product Image"
-                  placeholder="blur"
-                  blurDataURL="https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png"
-                  style={{
-                    objectFit: "contain",
-                    width: "auto",
-                    height: `${(width / 4) * 3}px`,
-                  }}
-                  loading="lazy"
-                />
-              </div>
+              <Image
+                src={image.url}
+                width={0}
+                height={0}
+                alt="preview"
+                placeholder="blur"
+                blurDataURL="https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png"
+                style={{
+                  objectFit: "contain",
+                  width: `${width / 4}px`,
+                  height: `${(width / 16) * 3}px`,
+                }}
+                loading="lazy"
+                className="rounded-md border-2 border-slate-300"
+              />
             </SwiperSlide>
           );
         })}

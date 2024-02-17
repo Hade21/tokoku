@@ -1,4 +1,4 @@
-export default function useDebounceQuery({ fn, delay }: { fn: Function, delay: number }) {
+export default function debounceQuery(fn: Function, delay: number) {
     let timeoutId: ReturnType<typeof setTimeout>
     return (...args: any) => {
         clearTimeout(timeoutId)

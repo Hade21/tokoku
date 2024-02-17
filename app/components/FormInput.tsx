@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import ToggleVisiblePassword from "./ToggleVisiblePassword";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   reference: RefObject<HTMLInputElement>;
   type: string;
   id: string;
