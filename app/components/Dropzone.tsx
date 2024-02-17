@@ -38,11 +38,11 @@ const Dropzone: React.FC<DropzoneProps> = ({ files, setFiles }) => {
         <input className="input-zone" {...getInputProps()} />
         <div className="img">
           <Image
-            width={windowsDimension.width / 3}
+            width={windowsDimension!.width / 3}
             height={
-              windowsDimension.width > 768
-                ? windowsDimension.width / 4
-                : windowsDimension.width / 3
+              windowsDimension!.width > 768
+                ? windowsDimension!.width / 4
+                : windowsDimension!.width / 3
             }
             loading="lazy"
             className="rounded-md"
