@@ -1,25 +1,42 @@
 import { useState, useEffect } from "react";
 
-function getWindowDimensions() {
-  if (typeof window !== 'undefined') {
-    const { innerWidth: width, innerHeight: height } = window;
-    return { width, height };
-  }
-}
+// function getWindowDimensions() {
+//   if (typeof window !== 'undefined') {
+//     const { innerWidth: width, innerHeight: height } = window;
+//     return { width, height };
+//   }
+// }
+
+// export default function useWindowsDimension() {
+//   const [windowsDimension, setWindowsDimension] = useState(
+//     getWindowDimensions()
+//   );
+
+//   useEffect(() => {
+//     function handleResize() {
+//       setWindowsDimension(getWindowDimensions());
+//     }
+
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   return windowsDimension;
+// }
 
 export default function useWindowsDimension() {
   const [windowsDimension, setWindowsDimension] = useState(
-    getWindowDimensions()
-  );
+    { width: 0, height: 0 }
+  )
+
+  const handleResize = () => {
+    setWindowsDimension({ width: window.innerWidth, height: window.innerHeight })
+  }
 
   useEffect(() => {
-    function handleResize() {
-      setWindowsDimension(getWindowDimensions());
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return windowsDimension;
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  return windowsDimension
 }

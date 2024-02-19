@@ -25,11 +25,12 @@ import Modals from "../components/Modals";
 const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   const [modal, setModal] = React.useState<boolean>(false);
   const [files, setFiles] = React.useState<File[]>([]);
-  console.log("🚀 ~ FormProduct ~ files:", files);
   const [modalTitle, setModalTitle] = React.useState<string>("");
   const [modalDesc, setModalDesc] = React.useState<string>("");
+
   const name = useAppSelector((state) => state.newProduct.title);
   const desc = useAppSelector((state) => state.newProduct.description);
   const price = useAppSelector((state) => state.newProduct.price);
@@ -38,6 +39,7 @@ const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
   const variant = useAppSelector((state) => state.newProduct.variant);
   const category = useAppSelector((state) => state.newProduct.category);
   const brand = useAppSelector((state) => state.newProduct.brand);
+
   const {
     data: newProduct,
     mutate: addProduct,
