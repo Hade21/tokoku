@@ -1,4 +1,5 @@
 import React from "react";
+
 import Product from "./updateProduct";
 
 const UpdateProduct = () => {

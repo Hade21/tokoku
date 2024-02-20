@@ -1,7 +1,8 @@
 "use client";
 import React, { Fragment } from "react";
+
 import { Dialog, Transition } from "@headlessui/react";
-import Button from "./Button";
+import { Button } from "../atom";
 
 interface ModalsProps {
   isOpen: boolean;

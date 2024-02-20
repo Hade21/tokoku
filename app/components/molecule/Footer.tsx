@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BsFillSuitHeartFill } from "react-icons/bs";
 
 const Footer: React.FC = () => {

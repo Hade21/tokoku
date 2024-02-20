@@ -1,5 +1,6 @@
-import { BackButton } from "@/app/components";
 import React from "react";
+
+import { BackButton } from "@/app/components";
 import FormProduct from "../FormProduct";
 
 const Product = () => {

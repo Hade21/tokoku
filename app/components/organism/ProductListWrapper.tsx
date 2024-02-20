@@ -1,7 +1,8 @@
 import { dehydrate } from "@tanstack/react-query";
-import getQueryClient from "../lib/getQueryClient";
+import getQueryClient from "@/app/lib/getQueryClient";
+import Hydrate from "@/app/lib/hydrate";
 import productService from "@/services/productApi";
-import Hydrate from "../lib/hydrate";
+
 import Products from "./ProductsList";
 
 interface ProductTitle {

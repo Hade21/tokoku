@@ -1,15 +1,17 @@
 "use client";
+import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/queryUserHooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { RemoveTokenCookies } from "../../lib/tokenCookies";
+
+import { AxiosError } from "axios";
 import { resetData } from "@/store/userDataSlice";
-import Link from "next/link";
-import React from "react";
+
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
-import Modals from "./Modals";
-import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
-import { RemoveTokenCookies } from "../lib/tokenCookies";
+import { Modals } from "../molecule";
 
 interface LoginButtonProps {
   hamburger?: boolean;

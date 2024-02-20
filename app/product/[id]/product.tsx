@@ -1,12 +1,16 @@
 "use client";
-import CartOptionItem from "@/app/components/CartOptionItem";
-import ImagesProduct from "@/app/components/ImagesProduct";
-import LoadingAnimation from "@/app/components/LoadingAnimation";
-import { useGetDetailProduct } from "@/hooks/queryProductHooks";
-import axios from "axios";
 import React from "react";
+
+import axios from "axios";
+import { useGetDetailProduct } from "@/hooks/queryProductHooks";
+
+import {
+  CartOptionItem,
+  ImagesProduct,
+  LoadingAnimation,
+  BackButton,
+} from "@/app/components";
 import { AiFillStar } from "react-icons/ai";
-import { BackButton } from "@/app/components";
 
 const ProductDetail = ({ id }: { id: string }) => {
   const { data, isLoading, error, isError } = useGetDetailProduct(id);
