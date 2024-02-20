@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
-import Button from "./Button";
-import Counter from "./Counter";
-import Selector from "./Selector";
+
+import axios from "axios";
 import { CartOptionProps } from "@/types";
 import { useAddToCart } from "@/hooks/queryUserHooks";
+
+import { Button, Counter, Selector } from "../atom";
 import Modals from "./Modals";
-import axios from "axios";
 
 const CartOptionItem: React.FC<CartOptionProps> = (props) => {
   const { variantOption, colorOption, stocks, _id } = props;

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
   reset,
@@ -19,8 +20,7 @@ import {
   useUploadImages,
 } from "@/hooks/queryProductHooks";
 
-import { Button, Dropzone, Input } from "../components";
-import Modals from "../components/Modals";
+import { Button, Dropzone, Input, Modals } from "../components";
 
 const FormProduct = ({ id, type }: { id?: string; type: "add" | "update" }) => {
   const router = useRouter();
