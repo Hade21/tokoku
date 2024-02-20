@@ -1,10 +1,11 @@
 "use client";
 import React, { Fragment } from "react";
+import Link from "next/link";
+
 import { Menu, Transition } from "@headlessui/react";
 import UseAnimations from "react-useanimations";
 import menu2 from "react-useanimations/lib/menu2";
-import Link from "next/link";
-import LoginButton from "./LoginButton";
+import { LoginButton } from "../organism";
 
 interface HamburgerMenuProps {
   lists: {

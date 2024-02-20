@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
-import Button from "./Button";
-import { BiUser, BiLock, BiEnvelope, BiPhone } from "react-icons/bi";
+
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
   setEmail,
@@ -27,13 +27,14 @@ import {
   validatePassword,
   validatePhone,
   resetUserState,
-} from "../../store/userSlice";
-import AlertAnimation from "./AlertAnimation";
-import Input from "./FormInput";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+} from "@/store/userSlice";
 import { useLogin, useRegister } from "@/hooks/queryUserHooks";
 import { SetTokenCookies } from "@/app/lib/tokenCookies";
+
+import { Button, AlertAnimation } from "../atom";
+import Input from "./FormInput";
+import { BiUser, BiLock, BiEnvelope, BiPhone } from "react-icons/bi";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 interface FormUserProps {
   variant: "login" | "register";

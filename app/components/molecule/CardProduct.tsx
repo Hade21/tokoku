@@ -1,8 +1,10 @@
 import React from "react";
-import ImagesProduct from "./ImagesProduct";
+
+import { CardProductProps } from "@/types";
+
+import { ImagesProduct } from "../atom";
 import CartOptionItem from "./CartOptionItem";
 import { AiFillStar } from "react-icons/ai";
-import { CardProductProps } from "@/types";
 
 const CardProduct: React.FC<CardProductProps> = (props) => {
   const { img, name, price, id, variants, colors, stocks, rating } = props;

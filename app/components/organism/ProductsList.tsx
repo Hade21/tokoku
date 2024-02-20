@@ -1,12 +1,14 @@
 "use client";
-import CardProduct from "./CardProduct";
-import { Product } from "@/types";
-import LoadingAnimation from "./LoadingAnimation";
-import { useGetProducts } from "@/hooks/queryProductHooks";
-import { useGetUserData } from "@/hooks/queryUserHooks";
 import { useEffect } from "react";
+
+import { useGetUserData } from "@/hooks/queryUserHooks";
+import { useGetProducts } from "@/hooks/queryProductHooks";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { resetData, setData } from "@/store/userDataSlice";
+import { Product } from "@/types";
+
+import { CardProduct } from "../molecule";
+import { LoadingAnimation } from "../atom";
 
 interface ProductsProps {
   sort: string;

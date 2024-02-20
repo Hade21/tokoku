@@ -1,11 +1,7 @@
 "use client";
 import React from "react";
-
-import { BackButton, Footer, Header } from "@/app/components";
-import LoadingAnimation from "@/app/components/LoadingAnimation";
-import FormProduct from "../FormProduct";
-
 import { useSearchParams } from "next/navigation";
+
 import { useGetDetailProduct } from "@/hooks/queryProductHooks";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import {
@@ -17,6 +13,9 @@ import {
   setTitle,
 } from "@/store/newProductSlice";
 import { setColor, setVariant } from "@/store/cartOptionSlice";
+
+import { BackButton, Footer, Header, LoadingAnimation } from "@/app/components";
+import FormProduct from "../FormProduct";
 
 const Product = () => {
   const dispatch = useAppDispatch();

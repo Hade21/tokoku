@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useMemo } from "react";
-import { Button } from "@/app/components";
 import Image from "next/image";
-import { FiEdit3 } from "react-icons/fi";
+import { redirect } from "next/navigation";
+
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { BiSave } from "react-icons/bi";
 import { useGetUserData, useUpdateProfileData } from "@/hooks/queryUserHooks";
 import {
   changeEmail,
@@ -13,7 +12,10 @@ import {
   changePhone,
   setData,
 } from "@/store/userDataSlice";
-import { redirect } from "next/navigation";
+
+import { Button } from "@/app/components";
+import { FiEdit3 } from "react-icons/fi";
+import { BiSave } from "react-icons/bi";
 
 const ProfileData: React.FC = () => {
   const [edit, setEdit] = React.useState(false);
@@ -70,9 +72,7 @@ const ProfileData: React.FC = () => {
           }`}
         >
           <h1 className="text-3xl font-semibold text-oxford-blue ">
-            {!edit ? (
-              `${profile.firstName} ${profile.lastName}`
-            ) : (
+            {edit ? (
               <div className="flex w-full flex-col gap-2">
                 <input
                   className="rounded-md px-3 py-2 text-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-offset-bice-blue"
@@ -93,6 +93,8 @@ const ProfileData: React.FC = () => {
                   onChange={(e) => dispatch(changeLastName(e.target.value))}
                 />
               </div>
+            ) : (
+              `${profile.firstName} ${profile.lastName}`
             )}
           </h1>
         </div>
@@ -124,9 +126,7 @@ const ProfileData: React.FC = () => {
       <section className="mb-4 flex flex-col justify-between border-t-2 border-white py-2 sm:flex-row">
         <div className="flex-1">
           <h1 className="text-lg font-semibold">Email</h1>
-          {!edit ? (
-            <p className="p-2 text-gray-500">{profile.email}</p>
-          ) : (
+          {edit ? (
             <input
               className="rounded-md px-3 py-2 outline-none transition-all duration-300 focus:ring-2 focus:ring-offset-bice-blue"
               type="text"
@@ -136,13 +136,13 @@ const ProfileData: React.FC = () => {
               placeholder="Your email"
               onChange={(e) => dispatch(changeEmail(e.target.value))}
             />
+          ) : (
+            <p className="p-2 text-gray-500">{profile.email}</p>
           )}
         </div>
         <div className="flex-1">
           <h1 className="text-lg font-semibold">Phone</h1>
-          {!edit ? (
-            <p className="text-gray-500">{profile.phone}</p>
-          ) : (
+          {edit ? (
             <input
               className="rounded-md px-3 py-2 outline-none transition-all duration-300 focus:ring-2 focus:ring-offset-bice-blue"
               type="text"
@@ -152,6 +152,8 @@ const ProfileData: React.FC = () => {
               placeholder="Your phone number"
               onChange={(e) => dispatch(changePhone(e.target.value))}
             />
+          ) : (
+            <p className="text-gray-500">{profile.phone}</p>
           )}
         </div>
       </section>

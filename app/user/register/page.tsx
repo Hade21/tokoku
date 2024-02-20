@@ -1,6 +1,7 @@
-import { FormUser, UserAnimation } from "@/app/components";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+
+import { FormUser, UserAnimation } from "@/app/components";
 
 const Register: React.FC = () => {
   return (

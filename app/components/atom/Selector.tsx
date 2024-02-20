@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import { SelectorProps } from "@/types";
+
 import { RadioGroup } from "@headlessui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
 
 const Selector: React.FC<SelectorProps> = (props) => {

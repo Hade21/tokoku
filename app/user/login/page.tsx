@@ -1,6 +1,7 @@
 import React from "react";
-import { FormUser, UserAnimation } from "../../components";
 import Link from "next/link";
+
+import { FormUser, UserAnimation } from "../../components";
 
 const Login = () => {
   return (
