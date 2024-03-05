@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
+import { AxiosError } from "axios";
 
 import { useGetDetailProduct } from "@/hooks/queryProductHooks";
 import { useAppDispatch } from "@/hooks/reduxHooks";
@@ -20,9 +21,8 @@ import FormProduct from "../FormProduct";
 const Product = () => {
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-  console.log(searchParams.get("id"));
   const id = searchParams.get("id") ?? "";
-  const { data, isLoading, error, status } = useGetDetailProduct(id);
+  const { data, isLoading, error } = useGetDetailProduct(id);
 
   React.useEffect(() => {
     if (data) {
@@ -37,6 +37,14 @@ const Product = () => {
     }
   }, [data, dispatch]);
 
+  if (error) {
+    if (error instanceof AxiosError)
+      return (
+        <div className="flex h-screen w-screen items-center justify-center text-xl font-semibold">
+          {error.message}
+        </div>
+      );
+  }
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">

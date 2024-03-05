@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useMemo } from "react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useGetUserData, useUpdateProfileData } from "@/hooks/queryUserHooks";
@@ -16,9 +16,11 @@ import {
 import { Button } from "@/app/components";
 import { FiEdit3 } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
+import { GiBoxUnpacking } from "react-icons/gi";
 
 const ProfileData: React.FC = () => {
   const [edit, setEdit] = React.useState(false);
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.userData);
   const { data } = useGetUserData();
@@ -71,7 +73,7 @@ const ProfileData: React.FC = () => {
               : "flex-grow text-center sm:text-left "
           }`}
         >
-          <h1 className="text-3xl font-semibold text-oxford-blue ">
+          <h1 className="text-3xl font-semibold text-oxford-blue dark:text-white">
             {edit ? (
               <div className="flex w-full flex-col gap-2">
                 <input
@@ -98,7 +100,7 @@ const ProfileData: React.FC = () => {
             )}
           </h1>
         </div>
-        <div className="fixed right-3 top-4 col-span-2 justify-self-end sm:static">
+        <div className="fixed right-3 top-4 col-span-2 flex flex-col items-end justify-center gap-4 justify-self-end sm:static">
           {edit ? (
             <Button
               type="button"
@@ -121,6 +123,15 @@ const ProfileData: React.FC = () => {
               </span>
             </Button>
           )}
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => router.push(`/user/${profile._id}/products`)}
+          >
+            <span className="flex items-center gap-2">
+              <GiBoxUnpacking /> My Products
+            </span>
+          </Button>
         </div>
       </section>
       <section className="mb-4 flex flex-col justify-between border-t-2 border-white py-2 sm:flex-row">

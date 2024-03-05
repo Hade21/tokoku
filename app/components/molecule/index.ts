@@ -11,5 +11,6 @@ import Header from './Header';
 import HeroBanner from './HeroBanner';
 import ImageSlider from './ImageSlider';
 import Modals from './Modals';
+import MyCardProduct from './MyCardProduct';
 
-export { CartOptionItem, CardProduct, CartProduct, CartProductLoading, Dropzone, Footer, FormInput, FormUser, HamburgerMenu, Header, HeroBanner, ImageSlider, Modals }
+export { CartOptionItem, CardProduct, CartProduct, CartProductLoading, Dropzone, Footer, FormInput, FormUser, HamburgerMenu, Header, HeroBanner, ImageSlider, Modals, MyCardProduct }
