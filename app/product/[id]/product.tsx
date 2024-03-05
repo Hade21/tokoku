@@ -9,10 +9,14 @@ import {
   ImagesProduct,
   LoadingAnimation,
   BackButton,
+  Button,
 } from "@/app/components";
 import { AiFillStar } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 
 const ProductDetail = ({ id }: { id: string }) => {
+  const router = useRouter();
   const { data, isLoading, error, isError } = useGetDetailProduct(id);
   const productData = data?.item;
 
@@ -42,9 +46,20 @@ const ProductDetail = ({ id }: { id: string }) => {
           <ImagesProduct img={productData.images} _id={productData._id} />
         </div>
         <div className="detail">
-          <h1 className="mb-3 text-2xl font-semibold md:text-3xl">
-            {productData.title}
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="mb-3 text-2xl font-semibold md:text-3xl">
+              {productData.title}
+            </h1>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() =>
+                router.push(`/product/update?id=${productData._id}`)
+              }
+            >
+              <CiEdit size={20} />
+            </Button>
+          </div>
           <p className="text-sm text-non-photo-blue md:text-base">
             Rp. {productData.price}
           </p>

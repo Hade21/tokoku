@@ -19,10 +19,10 @@ import FormProduct from "../FormProduct";
 
 const Product = () => {
   const dispatch = useAppDispatch();
-  const params = { id: "6412b950e31caca1b7a5f37d" };
   const searchParams = useSearchParams();
   console.log(searchParams.get("id"));
-  const { data, isLoading, error, status } = useGetDetailProduct(params.id);
+  const id = searchParams.get("id") ?? "";
+  const { data, isLoading, error, status } = useGetDetailProduct(id);
 
   React.useEffect(() => {
     if (data) {
@@ -65,7 +65,7 @@ const Product = () => {
         </div>
         <main>
           <div className="product">
-            <FormProduct type="update" id={params.id} />
+            <FormProduct type="update" id={id} />
           </div>
         </main>
       </div>
